@@ -12,10 +12,10 @@ background-color: #ffffff; }
 <div class="container">
     <div class="row my-2">
         <h3><b>Latest Tech News</b></h3>
-        {% for blog in blogs %}
+        {% for blog in blogs reversed %}
         <div class="col-md-10">
             <div
-                class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{blog.title}}</h3>
                     <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}</div>
@@ -23,7 +23,7 @@ background-color: #ffffff; }
                     <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
-                    <img src="/media/{{blog.thumbnail}}" class="bd-placeholder-img my-4" style="height:80%;">
+                    <img src="/media/{{blog.thumbnail}}" class="bd-placeholder-img my-4" style="width:100%;height:80%;">
                 </div>
             </div>
         </div>
