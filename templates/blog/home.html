@@ -12,6 +12,7 @@ background-color: #ffffff; }
 <div class="container">
     <div class="row my-2">
         <h3><b>Latest Tech News</b></h3>
+        {% with name=4 %}
         {% for blog in blogs reversed %}
         <div class="col-md-10">
             <div
@@ -28,6 +29,7 @@ background-color: #ffffff; }
             </div>
         </div>
         {% endfor %}
+        {% endwith %}
     </div>
 </div>
 {% endblock body %}
