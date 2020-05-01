@@ -1,0 +1,1 @@
+Django tech blog  site
