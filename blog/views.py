@@ -19,5 +19,12 @@ def blogpost(request,id):
 
 def search(request):
     query = request.GET.get('query')
-    blogs = Blogpost.objects.filter(title__icontains=query)
-    return render(request,'blog/search.html',{'blogs':blogs})
+    if len(query)>80:
+        blogs = []
+    else:
+        blogTitle = Blogpost.objects.filter(title__icontains=query)
+        blogContant = Blogpost.objects.filter(contant__icontains=query)
+        blogs = blogTitle.union(blogContant)
+    if blogs.count==0:
+        messages.warning(request,"No search Found please refine your search ")
+    return render(request,'blog/search.html',{'blogs':blogs, 'query': query})
