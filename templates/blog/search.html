@@ -11,10 +11,22 @@ background-color: #ffffff; }
 {% load static %}
 <div class="container">
     <div class="row my-2">
-        <h3><b>Latest Tech News</b></h3>
+        <div class="col-md-12">
+            <h3><b>Search Result:</b></h3>
+            {% if blogs|length < 1 %}
+            <p>NO Result Found</p>
+            <b>Your search - {{query}}</b>- did not match any documents.<br><br>
+            <b>Suggestions:</b>
+            <ul>
+                <li> Make sure that all words are spelled correctly. </li>
+                <li> Try different keywords. </li>
+                <li> Try more general keywords. </li>
+                <li>Try fewer keywords.</li>
+            </ul>
+        </div>
+        {%endif%}
         {% with name=1 %}
-        {% for blog in blogs %}
-        {% if name < 4 %}
+        {% for blog in blogs reversed %}
         <div class="col-md-10">
             <div
                 class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
@@ -29,9 +41,8 @@ background-color: #ffffff; }
                 </div>
             </div>
         </div>
-        {% endif %}
         {% endfor %}
-        {% endwith %} 
+        {% endwith %}
     </div>
 </div>
-{% endblock body %} 
+{% endblock body %}
