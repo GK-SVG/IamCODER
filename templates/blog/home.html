@@ -12,15 +12,16 @@ background-color: #ffffff; }
 <div class="container">
     <div class="row my-2">
         <h3><b>Latest Tech News</b></h3>
-        {% with name=4 %}
+        {% with name=1 %}
         {% for blog in blogs reversed %}
+        {% if name < 4 %}
         <div class="col-md-10">
             <div
                 class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0">{{blog.title}}</h3>
                     <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}</div>
-                    <p class="card-text mb-auto">{{blog.desc}}...</p>
+                    <p class="card-text mb-auto">{{blog.contant|truncatechars:180}}...</p>
                     <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
@@ -28,8 +29,9 @@ background-color: #ffffff; }
                 </div>
             </div>
         </div>
+        {% endif %}
         {% endfor %}
-        {% endwith %}
+        {% endwith %} 
     </div>
 </div>
 {% endblock body %}
