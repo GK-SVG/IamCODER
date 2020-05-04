@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from.models import Blogpost
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate,login,logout
 # Create your views here.
 
 def home(request):
@@ -39,23 +40,28 @@ def signup(request):
         email=request.POST['email']
         password=request.POST['pass1']
         password2=request.POST['pass2']
-        # CHECKPOINTS
-    if len(username) > 12 :
-        messages.error(request,'Your account not created Because')
-        messages.error(request,'Username must have maximum 12 Charcters')
-        messages.error(request,'Please fill SIGN UP form again')
-        return redirect('/')
-    if not username.isalnum() :
-        messages.error(request,'Your account not created Because')
-        messages.error(request,'Username only contain alphaNumeric value')
-        messages.error(request,'Please fill SIGN UP form again')
-        return redirect('/')
-    if password != password2 :
-        messages.error(request,'Your account not created Because')
-        messages.error(request,'Passwords do not match')
-        messages.error(request,'Please fill SIGN UP form again')
-        return redirect('/')
 
+        # checkpoints 
+        #username length checker
+        if len(username) > 12 :
+            messages.error(request,'Your account not created Because')
+            messages.error(request,'Username must have maximum 12 Charcters')
+            messages.error(request,'Please fill SIGN UP form again')
+            return redirect('/')
+
+        # username charkters checker
+        if not username.isalnum() :
+             messages.error(request,'Your account not created Because')
+             messages.error(request,'Username only contain alphaNumeric value')
+             messages.error(request,'Please fill SIGN UP form again')
+             return redirect('/')       
+
+        # password1 and password2 checker     
+        if password != password2 :
+            messages.error(request,'Your account not created Because')
+            messages.error(request,'Passwords do not match')
+            messages.error(request,'Please fill SIGN UP form again')
+            return redirect('/')
         # creating user
         myuser = User.objects.create_user(username=username,email=email,password=password)
         myuser.first_name= fname
@@ -65,3 +71,23 @@ def signup(request):
         return redirect('/')
     else:
         return HttpResponse('404 - Not Found')
+
+def handlelogin(request):
+    if request.method == "POST":
+        username = request.POST["loginusername"]
+        password = request.POST["loginpassword"]
+        user = authenticate(username=username,password=password)
+        if user is not None:
+            login(request,user)
+            messages.success(request,"Successfully Logged in")
+            return redirect('/')
+        else:
+            messages.error(request,"Invalid Credentials, Please try again")
+            return redirect('/')
+    else:
+        return HttpResponse('Error Not Found 404')
+
+def handlelogout(request):
+    logout(request)
+    messages.success(request,"Successfully Logged Out")
+    return redirect('/')
