@@ -40,6 +40,21 @@ def signup(request):
         password=request.POST['pass1']
         password2=request.POST['pass2']
         # CHECKPOINTS
+    if len(username) > 12 :
+        messages.error(request,'Your account not created Because')
+        messages.error(request,'Username must have maximum 12 Charcters')
+        messages.error(request,'Please fill SIGN UP form again')
+        return redirect('/')
+    if not username.isalnum() :
+        messages.error(request,'Your account not created Because')
+        messages.error(request,'Username only contain alphaNumeric value')
+        messages.error(request,'Please fill SIGN UP form again')
+        return redirect('/')
+    if password != password2 :
+        messages.error(request,'Your account not created Because')
+        messages.error(request,'Passwords do not match')
+        messages.error(request,'Please fill SIGN UP form again')
+        return redirect('/')
 
         # creating user
         myuser = User.objects.create_user(username=username,email=email,password=password)
