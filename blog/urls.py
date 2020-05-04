@@ -22,5 +22,7 @@ urlpatterns = [
     path('blogpost/<int:id>',views.blogpost,name='blogpost'),
     path("search/", views.search, name="Search"), 
     path("signup/", views.signup, name="signup"), 
+    path("login/", views.handlelogin, name="handlelogin"),
+    path("logout/", views.handlelogout, name="handlelogout"),
 ]
 
