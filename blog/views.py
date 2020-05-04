@@ -34,6 +34,8 @@ def search(request):
 def signup(request):
     if request.method == 'POST':
         username=request.POST['username']
+        fname = request.POST['fname']
+        lname = request.POST['lname']
         email=request.POST['email']
         password=request.POST['pass1']
         password2=request.POST['pass2']
@@ -41,6 +43,8 @@ def signup(request):
 
         # creating user
         myuser = User.objects.create_user(username=username,email=email,password=password)
+        myuser.first_name= fname
+        myuser.last_name= lname
         myuser.save()
         messages.success(request,'Your account created succesfully')
         return redirect('/')
