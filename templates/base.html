@@ -12,8 +12,13 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>{% block title%} {% endblock %}</title>
   <style>
-    {% block css %}
-    {% endblock %}
+    {
+      % block css %
+    }
+
+      {
+      % endblock %
+    }
   </style>
 </head>
 
@@ -44,13 +49,13 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
       <!-- Button to trigger sign up  modal -->
-  <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#signupModal">
-    Sign Up
-  </button>
-  <!-- Button to trigger log in  modal -->
-  <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#loginModal">
-    Log In
-  </button>
+      <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#signupModal">
+        Sign Up
+      </button>
+      <!-- Button to trigger log in  modal -->
+      <button type="button" class="btn btn-success mx-1" data-toggle="modal" data-target="#loginModal">
+        Log In
+      </button>
     </div>
   </nav>
   {% for message in messages %}
@@ -72,35 +77,26 @@
           </button>
         </div>
         <div class="modal-body">
-          <form>
-          <div class="form-group">
+          <form action="/signup/" method="POST">
+            <div class="form-group">
               <label for="username">UserName</label>
-              <input type="text" class="form-control" id="username" placeholder="username">
+              <input type="text" class="form-control" id="username" name="username" placeholder="username">
             </div>
             <div class="form-group">
               <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" placeholder="name@example.com">
-            </div>
-          <div class="form-group">
-              <label for="firstname">First Name</label>
-              <input type="text" class="form-control" id="firstname" placeholder="first name">
-            </div>
-            <div class="form-group">
-              <label for="lastname">Last Name</label>
-              <input type="text" class="form-control" id="lastname" placeholder="last name">
+              <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
             </div>
             <div class="form-group">
               <label for="pass1">Password</label>
-              <input type="password" class="form-control" id="pass1" placeholder="enter password">
+              <input type="password" class="form-control" id="pass1" name="pass1" placeholder="enter password">
             </div>
             <div class="form-group">
               <label for="pass2">Cofirm Password</label>
-              <input type="password" class="form-control" id="password" placeholder="enter password again">
+              <input type="password" class="form-control" id="pass2" name="pass2" placeholder="enter password again">
             </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">submit</button>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">submit</button>
+          </form>
         </div>
       </div>
     </div>
@@ -117,7 +113,7 @@
         </div>
         <div class="modal-body">
           <form>
-          <div class="form-group">
+            <div class="form-group">
               <label for="email">Email address</label>
               <input type="email" class="form-control" id="email" placeholder="name@example.com">
             </div>
@@ -125,10 +121,9 @@
               <label for="pass1">Password</label>
               <input type="password" class="form-control" id="pass1" placeholder="enter password">
             </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">submit</button>
           </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary">submit</button>
         </div>
       </div>
     </div>
