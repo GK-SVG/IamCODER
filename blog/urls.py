@@ -21,5 +21,6 @@ urlpatterns = [
     path('about/',views.about,name='about'),
     path('blogpost/<int:id>',views.blogpost,name='blogpost'),
     path("search/", views.search, name="Search"), 
+    path("signup/", views.signup, name="signup"), 
 ]
 
