@@ -45,20 +45,27 @@ border: 2px solid #e7e7e7;
             </div><!-- /.blog-main -->
         </div>
     </div>
-    <h3><b>Commets</b></h3>
+    <h3><b>Comments</b></h3>
     <form action="/postComment/" method="post">
-              {% csrf_token %}
-              <input type="text" class="form-control" id="comment" name="comment">
-              <input type="hidden" class="form-control" id="post_id" name="post_id" value="{{post.post_id}}">
-              <input type="submit" class="btn btn-primary" value="Submit">
-          </form>
-    <div class="row">
-        <div class="col-md-2">
-            <b>user</b>
+        {% csrf_token %}
+        <div>
+            <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
+            <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
         </div>
-        <div class="col-md-10">
-            comment here
+        <input type="submit" class="btn btn-primary mt-2" value="submit">
+    </form>
+    {% for com in comment %}
+    <div class="row my-3 border">
+        <div class="col-md-1">
+            {%load static%}
+            <img src="{% static "blog/user.png"%}" class="w-100 p-1">
         </div>
+        <div class="col-md-11">
+            <p class="mt-3 ml-0"> <b>{{com.user.username}} </b>at {{com.time}}</p>
+        </div>
+        <div class="col-md-1"></div>
+        <div class="col-md-11 mb-3"> {{com.comment}}</div>
     </div>
+    {% endfor %}
 </div>
 {% endblock body %}
