@@ -23,3 +23,9 @@ class BlogCommet(models.Model):
     post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', on_delete=models.CASCADE,null=True)
     time = models.DateTimeField(default=now)
+
+    def __str__(self):
+        return "comment by "+ self.user.username 
+
+
+    
