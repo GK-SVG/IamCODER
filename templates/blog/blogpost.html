@@ -20,9 +20,9 @@ background-color: black;
 color:white;
 }
 .button4 {
-  background-color: white;
-  color: black;
-  border: 2px solid #e7e7e7;
+background-color: white;
+color: black;
+border: 2px solid #e7e7e7;
 }
 {% endblock css%}
 {% block body %}
@@ -43,8 +43,16 @@ color:white;
                     <p>{{post.contant}}</p>
                 </div><!-- /.blog-post -->
             </div><!-- /.blog-main -->
-            <div class="col-md-3">
-            </div>
         </div>
     </div>
-    {% endblock body %}
+    <h3><b>Commets</b></h3>
+    <div class="row">
+        <div class="col-md-2">
+            <b>user</b>
+        </div>
+        <div class="col-md-10">
+            comment here
+        </div>
+    </div>
+</div>
+{% endblock body %}
