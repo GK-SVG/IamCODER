@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from.models import Blogpost
+from.models import Blogpost, BlogCommet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 # Create your views here.
@@ -16,7 +16,8 @@ def about(request):
 
 def blogpost(request,id):
     post = Blogpost.objects.filter(post_id = id)[0]
-    return render(request, 'blog/blogpost.html',{'post':post})
+    comment = BlogCommet.objects.filter(post=post)
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment})
 
 
 def search(request):
@@ -91,3 +92,14 @@ def handlelogout(request):
     logout(request)
     messages.success(request,"Successfully Logged Out")
     return redirect('/')
+
+def postComment(request):
+    if request.method == 'POST':
+        comment = request.POST.get("comment")
+        user = request.user
+        postId = request.POST.get("post_id") 
+        post = Blogpost.objects.get(post_id=postId)
+        comment = BlogCommet(comment=comment,user=user,post=post)
+        comment.save()
+        messages.success(request,"Comment posted successfully")
+    return redirect(f"/blogpost/{post.post_id}")
