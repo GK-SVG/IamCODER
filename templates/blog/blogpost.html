@@ -46,6 +46,12 @@ border: 2px solid #e7e7e7;
         </div>
     </div>
     <h3><b>Commets</b></h3>
+    <form action="/postComment/" method="post">
+              {% csrf_token %}
+              <input type="text" class="form-control" id="comment" name="comment">
+              <input type="hidden" class="form-control" id="post_id" name="post_id" value="{{post.post_id}}">
+              <input type="submit" class="btn btn-primary" value="Submit">
+          </form>
     <div class="row">
         <div class="col-md-2">
             <b>user</b>
