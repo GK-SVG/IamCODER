@@ -18,7 +18,7 @@ class Blogpost(models.Model):
 
 class BlogCommet(models.Model):
     comment_id = models.AutoField(primary_key=True)
-    comment = models.TextField()
+    comment = models.TextField(max_length=250,default="")
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     post = models.ForeignKey(Blogpost, on_delete=models.CASCADE)
     parent = models.ForeignKey('self', on_delete=models.CASCADE,null=True)
