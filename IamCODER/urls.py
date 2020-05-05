@@ -17,6 +17,9 @@ from django.urls import path,include
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static  
+admin.site.site_header = "IamCODER admin"
+admin.site.site_title = "IamCODER admin Panal"
+admin.site.index_title = "Welcome to IamCODER admin panal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
