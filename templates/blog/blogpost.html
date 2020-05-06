@@ -45,7 +45,8 @@ border: 2px solid #e7e7e7;
             </div><!-- /.blog-main -->
         </div>
     </div>
-    <h3><b>Comments</b></h3>
+    <h3><b>Comments({{comment.count}})</b></h3>
+    {% if user.is_authenticated %}
     <form action="/postComment/" method="post">
         {% csrf_token %}
         <div>
@@ -54,14 +55,17 @@ border: 2px solid #e7e7e7;
         </div>
         <input type="submit" class="btn btn-primary mt-2" value="submit">
     </form>
-    {% for com in comment %}
+    {% else %}
+    <div class="form-control" ><b>Please Login to comment here</b></div>
+    {% endif %}
+    {% for com in comment reversed%}
     <div class="row my-3 border">
         <div class="col-md-1">
             {%load static%}
-            <img src="{% static "blog/user.png"%}" class="w-100 p-1">
+            <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1">
         </div>
         <div class="col-md-11">
-            <p class="mt-3 ml-0"> <b>{{com.user.username}} </b>at {{com.time}}</p>
+            <p class="mt-3 ml-0"> <b style="font-size:20px;">{{com.user.username}} </b>at {{com.time}}</p>
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-11 mb-3"> {{com.comment}}</div>
