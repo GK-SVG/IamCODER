@@ -17,7 +17,7 @@ def about(request):
 def blogpost(request,id):
     post = Blogpost.objects.filter(post_id = id)[0]
     comment = BlogCommet.objects.filter(post=post)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment})
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user})
 
 
 def search(request):
