@@ -99,7 +99,10 @@ def postComment(request):
         user = request.user
         postId = request.POST.get("post_id") 
         post = Blogpost.objects.get(post_id=postId)
-        comment = BlogCommet(comment=comment,user=user,post=post)
-        comment.save()
-        messages.success(request,"Comment posted successfully")
+        if len(comment) > 0:
+            comment = BlogCommet(comment=comment,user=user,post=post)
+            comment.save()
+            messages.success(request,"Comment posted successfully")
+        else:
+            messages.warning(request,"Comment block never blank Please write something")        
     return redirect(f"/blogpost/{post.post_id}")
