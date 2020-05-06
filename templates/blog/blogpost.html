@@ -53,10 +53,10 @@ border: 2px solid #e7e7e7;
             <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
             <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
         </div>
-        <input type="submit" class="btn btn-primary mt-2" value="submit">
+        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
     </form>
     {% else %}
-    <div class="form-control" ><b>Please Login to comment here</b></div>
+    <div class="form-control"><b>Please Login to comment here</b></div>
     {% endif %}
     {% for com in comment reversed%}
     <div class="row my-3 border">
@@ -69,6 +69,20 @@ border: 2px solid #e7e7e7;
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-11 mb-3"> {{com.comment}}</div>
+        <div class="col-md-1"></div>
+        <div class="col-md-11 mb-3">
+            <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
+                aria-expanded="false" aria-controls="reply{{com.comment_id}}">
+                reply
+            </button>
+            </p>
+            <div class="collapse" id="reply{{com.comment_id}}">
+                <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
+                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                </div>
+            </div>
+        </div>
     </div>
     {% endfor %}
 </div>
