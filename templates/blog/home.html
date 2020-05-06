@@ -21,7 +21,7 @@ background-color: #ffffff; }
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0"><a href="blogpost/{{blog.post_id}}" class="text-dark">{{blog.title}}</a></h3>
                     <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}</div>
-                    <p class="card-text mb-auto">{{blog.contant|truncatechars:180}}...</p>
+                    <p class="card-text mb-auto preview">{{blog.contant|safe|truncatechars:180}}...</p>
                     <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
@@ -34,4 +34,12 @@ background-color: #ffffff; }
         {% endwith %} 
     </div>
 </div>
+{% block js %}
+<script>
+let previews=document.getElementsByClassName('preview'):
+Array.from(previews).forEach((element)=>{
+    element.innerHTML = element.innerText;
+});
+</script>
+{% endblock js %}
 {% endblock body %}
