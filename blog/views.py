@@ -25,7 +25,6 @@ def blogpost(request,id):
             replyDict[reply.parent.comment_id]=[reply]
         else:
             replyDict[reply.parent.comment_id].append(reply)
-    print(comment,replyDict)
     return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict})
 
 
