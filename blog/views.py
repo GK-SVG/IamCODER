@@ -4,6 +4,7 @@ from django.contrib import messages
 from.models import Blogpost, BlogCommet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
+import django.templatetags
 # Create your views here.
 
 def home(request):
@@ -16,8 +17,16 @@ def about(request):
 
 def blogpost(request,id):
     post = Blogpost.objects.filter(post_id = id)[0]
-    comment = BlogCommet.objects.filter(post=post)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user})
+    comment = BlogCommet.objects.filter(post=post,parent=None)
+    replies = BlogCommet.objects.filter(post=post).exclude(parent=None)
+    replyDict = {}
+    for reply in replies:
+        if reply.parent.comment_id not in replyDict.keys():
+            replyDict[reply.parent.comment_id]=[reply]
+        else:
+            replyDict[reply.parent.comment_id].append(reply)
+    print(comment,replyDict)
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict})
 
 
 def search(request):
