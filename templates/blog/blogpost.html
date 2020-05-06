@@ -53,6 +53,7 @@ border: 2px solid #e7e7e7;
             <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
             <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
         </div>
+        <input type="hidden" class="form-control" name="reply_id" value="">
         <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
     </form>
     {% else %}
@@ -71,15 +72,23 @@ border: 2px solid #e7e7e7;
         <div class="col-md-11 mb-3"> {{com.comment}}</div>
         <div class="col-md-1"></div>
         <div class="col-md-11 mb-3">
-            <button class="btn btn-dark" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
+            <button class="btn-sm btn-dark" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
                 aria-expanded="false" aria-controls="reply{{com.comment_id}}">
                 reply
             </button>
             </p>
             <div class="collapse" id="reply{{com.comment_id}}">
                 <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                    Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    <form action="/postComment/" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <input type="text" class="form-control" name="comment" placeholder="Enter your reply">
+                            <input type="hidden" class="form-control" name="reply_id" value="{{com.comment_id}}">
+                        </div>
+                        <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
+                        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2"
+                            value="submit">
+                    </form>
                 </div>
             </div>
         </div>
