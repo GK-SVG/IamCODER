@@ -25,7 +25,7 @@ class BlogCommet(models.Model):
     time = models.DateTimeField(default=now)
 
     def __str__(self):
-        return "comment by "+ self.user.username 
+        return self.comment[0:10] + "... by " + self.user.username 
 
 
     
