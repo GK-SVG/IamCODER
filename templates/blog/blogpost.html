@@ -41,7 +41,7 @@ border: 2px solid #e7e7e7;
                         style="width:100%;height:20em;">
                 </div>
                 <div class="blog-post">
-                    <p>{{post.contant}}</p>
+                    <p>{{post.contant|safe}}</p>
                 </div><!-- /.blog-post -->
             </div><!-- /.blog-main -->
         </div>
@@ -61,7 +61,7 @@ border: 2px solid #e7e7e7;
     <div class="form-control"><b>Please Login to comment here</b></div>
     {% endif %}
     {% for com in comment reversed%}
-    <div class="row my-3 border">
+    <div class="row my-3 border m-0">
         <div class="col-md-1">
             {%load static%}
             <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1">
@@ -71,9 +71,10 @@ border: 2px solid #e7e7e7;
         </div>
         <div class="col-md-1"></div>
         <div class="col-md-11 mb-3"> {{com.comment}}</div>
+        {% if user.is_authenticated %}
         <div class="col-md-1"></div>
         <div class="col-md-11 mb-3">
-            <button class="btn-sm btn-dark" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
+            <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
                 aria-expanded="false" aria-controls="reply{{com.comment_id}}">
                 reply
             </button>
@@ -93,6 +94,10 @@ border: 2px solid #e7e7e7;
                 </div>
             </div>
         </div>
+        {% else %}
+        
+        <div class="form-control ml-5"><b>Please Login to reply here</b></div>
+        {%endif%}
         {% for reply in replyDict|get_val:com.comment_id%}
         <div class="col-md-1" ></div>
         <div class="col-md-1" style="background-color:#ffffcc;"><img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1"></div>
