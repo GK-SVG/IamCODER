@@ -9,6 +9,7 @@ class Blogpost(models.Model):
     title = models.CharField(max_length=100)
     contant = models.TextField(max_length=5000)
     pub_date = models.DateTimeField(auto_now_add=True)
+    view = models.IntegerField(default=0)
     slug = models.CharField(max_length=130,default="")
     thumbnail = models.ImageField(upload_to='blog/images', default="")
 
