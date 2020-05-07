@@ -17,8 +17,10 @@ def about(request):
 
 def blogpost(request,id):
     post = Blogpost.objects.filter(post_id = id)[0]
+    post.view= post.view+1
+    post.save()
     comment = BlogCommet.objects.filter(post=post,parent=None)
-    replies = BlogCommet.objects.filter(post=post).exclude(parent=None)
+    replies = BlogCommet.objects.filter(post=post).exclude(parent=None) 
     replyDict = {}
     for reply in replies:
         if reply.parent.comment_id not in replyDict.keys():
