@@ -12,15 +12,15 @@ background-color: #ffffff; }
 <div class="container">
     <div class="row my-2">
         <h3><b>Latest Tech News</b></h3>
-        {% with name=1 %}
+        {% with name=4 %}
         {% for blog in blogs reversed %}
-        {% if name < 4 %}
+        {% comment %} {% if forloop.counter < name %} {% endcomment %}
         <div class="col-md-10">
             <div
                 class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0"><a href="blogpost/{{blog.post_id}}" class="text-dark">{{blog.title}}</a></h3>
-                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}</div>
+                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
                     <p class="card-text mb-auto preview">{{blog.contant|safe|truncatechars:180}}...</p>
                     <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
                 </div>
@@ -29,7 +29,7 @@ background-color: #ffffff; }
                 </div>
             </div>
         </div>
-        {% endif %}
+        {% comment %} {% endif %} {% endcomment %}
         {% endfor %}
         {% endwith %} 
     </div>
