@@ -74,12 +74,18 @@ def signup(request):
             messages.error(request,'Please fill SIGN UP form again')
             return redirect('/')
         # creating user
-        myuser = User.objects.create_user(username=username,email=email,password=password)
-        myuser.first_name= fname
-        myuser.last_name= lname
-        myuser.save()
-        messages.success(request,'Your account created succesfully')
-        return redirect('/')
+        try:
+            myuser=User.objects.get(username=username)
+            messages.error(request,'The username you entered has already been taken. Please try another username.')
+            return redirect('/')
+        except:
+            myuser = User.objects.create_user(username=username,email=email,password=password)
+            myuser.first_name= fname
+            myuser.last_name= lname
+            myuser.save()
+            messages.success(request,'Your account created succesfully')
+            return redirect('/')
+        
     else:
         return HttpResponse('404 - Not Found')
 
