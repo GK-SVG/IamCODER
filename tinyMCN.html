@@ -8,7 +8,7 @@
   </script>
   <script type="text/javascript">
   tinymce.init({
-    selector: '#contant',
+    selector: '#myTextarea',
     plugins: [
       'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
       'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
@@ -25,20 +25,20 @@
   });
   </script>
   <style>
-      #contant{
+      #myTextarea{
           height: 80vh;
       }
   </style>
 </head>
 
 <body>
-  <textarea id="contant"></textarea>
+  <textarea id="myTextarea"></textarea>
   <button id="bt">Get Html</button>
   <div id="myHtml"></div>
 </body>
 <script>
  bt.addEventListener('click',(e)=>{
-     myHtml.innerText = tinyMCE.get('contant').getContent();
+     myHtml.innerText = tinyMCE.get('myTextarea').getContent();
  });
 </script>
 </html>
