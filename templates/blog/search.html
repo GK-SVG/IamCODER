@@ -12,7 +12,7 @@ background-color: #ffffff; }
 <div class="container">
     <div class="row my-2">
         <div class="col-md-12">
-            <h3><b>Search Result:</b></h3>
+            <h3><b>Search Result: {{query}}</b></h3>
             {% if blogs|length < 1 %}
             <p>NO Result Found</p>
             <b>Your search - {{query}}</b>- did not match any documents.<br><br>
