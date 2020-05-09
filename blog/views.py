@@ -32,6 +32,8 @@ def blogpost(request,id):
 
 def search(request):
     query = request.GET.get('query')
+    if len(query)==0:
+        return redirect('/')
     if len(query)>80:
         blogs = []
     else:
@@ -131,3 +133,6 @@ def postComment(request):
         
               
     return redirect(f"/blogpost/{post.post_id}")
+
+def trending(request):
+    return render(request,'blog/trending.html')
