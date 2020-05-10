@@ -1,2 +1,2 @@
 Django tech blog  site
-IamCODER/blog/static/blog/coderscreenshot.png
+https://github.com/GK-SVG/IamCODER/blob/master/blog/static/blog/coderscreenshot.png
