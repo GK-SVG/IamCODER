@@ -7,3 +7,40 @@ body {
 background-color: #ffffff; }
 {%endblock css%}
 {% block trendactive %}active {% endblock trendactive%}
+{% block body %}
+{% load static %}
+<div class="container">
+    <div class="row my-2">
+       <div class="col-md-9">
+        <h3 ><b>Trending Tech News</b></h3>
+        </div>
+        {% for blog in blogs%}
+        <div class="col-md-12">
+            <div
+                class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <h3 class="mb-0"><a href="blogpost/{{blog.post_id}}" class="text-dark">{{blog.title|truncatechars:50}}</a></h3>
+                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
+                    <p class="card-text mb-auto preview">{{blog.contant|safe|truncatechars:250}}...</p>
+                    <a href="/blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <img src="/media/{{blog.thumbnail}}" class="bd-placeholder-img my-4" style="width:25em;height:14em;">
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row my-2">
+      
+    </div>
+</div>
+{% block js %}
+<script>
+let previews=document.getElementsByClassName('preview'):
+Array.from(previews).forEach((element)=>{
+    element.innerHTML = element.innerText;
+});
+</script>
+{% endblock js %}
+{% endblock body %}
