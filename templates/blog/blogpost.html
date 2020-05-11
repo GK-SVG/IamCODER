@@ -30,87 +30,103 @@ border: 2px solid #e7e7e7;
 {%load static %}
 <div class="container">
     <div class="row ">
-        <div class="col-md-7">
+        <div class="col-md-7 ">
             <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
             <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.writter}}({{post.view}} views)</b></p>
         </div>
         <div class="row mt-0">
-            <div class="col-md-9 blog-main">
+            <div class="col-md-8 blog-main">
                 <div class="col-auto d-none d-lg-block">
                     <img src="/media/{{post.thumbnail}}" class="bd-placeholder-img my-4 img-responsive"
                         style="width:100%;height:20em;">
                 </div>
-                <div class="blog-post">
+                <div class="blog-post ">
                     <p>{{post.contant|safe}}</p>
                 </div><!-- /.blog-post -->
-            </div><!-- /.blog-main -->
-        </div>
-    </div>
-    <h3><b>Comments({{comment.count}})</b></h3>
-    {% if user.is_authenticated %}
-    <form action="/postComment/" method="post">
-        {% csrf_token %}
-        <div>
-            <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
-            <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
-        </div>
-        <input type="hidden" class="form-control" name="reply_id" value="">
-        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
-    </form>
-    {% else %}
-    <div class="form-control"><b>Please Login to comment here</b></div>
-    {% endif %}
-    {% for com in comment reversed%}
-    <div class="row my-3 border m-0">
-        <div class="col-md-1">
-            {%load static%}
-            <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1">
-        </div>
-        <div class="col-md-11">
-            <p class="mt-3 ml-0"> <b style="font-size:1em;">{{com.user.username}} </b>at {{com.time}} says</p>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-11 mb-3"> {{com.comment}}</div>
-        {% if user.is_authenticated %}
-        <div class="col-md-1"></div>
-        <div class="col-md-11 mb-3">
-            <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse" data-target="#reply{{com.comment_id}}"
-                aria-expanded="false" aria-controls="reply{{com.comment_id}}">
-                reply
-            </button>
-            </p>
-            <div class="collapse" id="reply{{com.comment_id}}">
-                <div class="card card-body">
-                    <form action="/postComment/" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <input type="text" class="form-control" name="comment" placeholder="Enter your reply">
-                            <input type="hidden" class="form-control" name="reply_id" value="{{com.comment_id}}">
+            </div>
+            <div class="col mt-0">
+                {% for latest in latests %}
+                <div
+                    class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
+                    <a href="/blogpost/{{latest.post_id}}">
+                        <p class="mx-3 mt-2 text-dark"><b>{{latest.title}}</b></p>
+                    </a>
+                    <div class="col-md-4 mx-0">
+                            <a href="/blogpost/{{blog.post_id}}/"><img class="m-4" src="/media/{{latest.thumbnail}}"
+                                    style="width:19em;height:11em;"></a>
                         </div>
-                        <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
-                        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2"
-                            value="submit">
-                    </form>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
+        <h3><b>Comments({{comment.count}})</b></h3>
+        {% if user.is_authenticated %}
+        <form action="/postComment/" method="post">
+            {% csrf_token %}
+            <div>
+                <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
+                <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
+            </div>
+            <input type="hidden" class="form-control" name="reply_id" value="">
+            <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
+        </form>
         {% else %}
-        
-        <div class="form-control ml-5"><b>Please Login to reply here</b></div>
-        {%endif%}
-        {% for reply in replyDict|get_val:com.comment_id%}
-        <div class="col-md-1" ></div>
-        <div class="col-md-1" style="background-color:#ffffcc;"><img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1"></div>
-        <div class="col-md-10" style="background-color:#ffffcc;">
-            <p class="mt-3 ml-0"> <b style="font-size:20px;">{{reply.user.username}} </b>at {{reply.time}} says</p>
-        </div>
-        <div class="col-md-1"></div>
-        <div class="col-md-1" style="background-color:#ffffcc;"></div>
-        <div class="col-md-10" style="background-color:#ffffcc;">
-        {{reply.comment}}
+        <div class="form-control"><b>Please Login to comment here</b></div>
+        {% endif %}
+        {% for com in comment reversed%}
+        <div class="row my-3 border m-0">
+            <div class="col-md-1">
+                {%load static%}
+                <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1">
+            </div>
+            <div class="col-md-11">
+                <p class="mt-3 ml-0"> <b style="font-size:1em;">{{com.user.username}} </b>at {{com.time}} says</p>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-11 mb-3"> {{com.comment}}</div>
+            {% if user.is_authenticated %}
+            <div class="col-md-1"></div>
+            <div class="col-md-11 mb-3">
+                <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse"
+                    data-target="#reply{{com.comment_id}}" aria-expanded="false"
+                    aria-controls="reply{{com.comment_id}}">
+                    reply
+                </button>
+                </p>
+                <div class="collapse" id="reply{{com.comment_id}}">
+                    <div class="card card-body">
+                        <form action="/postComment/" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <input type="text" class="form-control" name="comment" placeholder="Enter your reply">
+                                <input type="hidden" class="form-control" name="reply_id" value="{{com.comment_id}}">
+                            </div>
+                            <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
+                            <input type="submit" style="background-color:black;" class="btn btn-primary mt-2"
+                                value="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+
+            <div class="form-control ml-5"><b>Please Login to reply here</b></div>
+            {%endif%}
+            {% for reply in replyDict|get_val:com.comment_id%}
+            <div class="col-md-1"></div>
+            <div class="col-md-1" style="background-color:#ffffcc;"><img src="{% static "blog/user.png"%}"
+                    class="img-circle w-100 p-1"></div>
+            <div class="col-md-10" style="background-color:#ffffcc;">
+                <p class="mt-3 ml-0"> <b style="font-size:20px;">{{reply.user.username}} </b>at {{reply.time}} says</p>
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1" style="background-color:#ffffcc;"></div>
+            <div class="col-md-10" style="background-color:#ffffcc;">
+                {{reply.comment}}
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% endblock body %}
+    {% endblock body %}
