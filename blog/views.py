@@ -5,6 +5,7 @@ from.models import Blogpost, BlogCommet
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 import django.templatetags
+from django.utils import timezone
 # Create your views here.
 
 def home(request):
@@ -16,6 +17,7 @@ def about(request):
     return render(request,'blog/about.html')
 
 def blogpost(request,id):
+    latests=Blogpost.objects.order_by('-pub_date')[:3]
     post = Blogpost.objects.filter(post_id = id)[0]
     post.view= post.view+1
     post.save()
@@ -27,7 +29,7 @@ def blogpost(request,id):
             replyDict[reply.parent.comment_id]=[reply]
         else:
             replyDict[reply.parent.comment_id].append(reply)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict})
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,'latests':latests})
 
 
 def search(request):
@@ -135,4 +137,6 @@ def postComment(request):
     return redirect(f"/blogpost/{post.post_id}")
 
 def trending(request):
-    return render(request,'blog/trending.html')
+    blogs = Blogpost.objects.order_by('-pub_date','view')[:4]
+    params = {'blogs': blogs}
+    return render(request,'blog/trending.html',params)
