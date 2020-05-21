@@ -10,64 +10,66 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0">
+  </script>
   <title>{% block title%} {% endblock %}</title>
   <style>
-    {
-% block css %
-    }
+    {%block css %}
 
-      {
-      % endblock %
-    }
-    
-
+    {%endblock %}
   </style>
 </head>
 
 <body>
-{% load static %}
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: black;>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <a  href="/"><img src="{% static "blog/coder.png"%}" style="width:4em;heigth:2em;"></a>
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item {% block homeactive %}{% endblock homeactive%}">
-          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item {% block trendactive %}{% endblock trendactive%}">
-          <a class="nav-link" href="/trending/">Trending<span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item {% block aboutactive %}{% endblock aboutactive%}">
-          <a class="nav-link" href="/about/">About Us</a>
-        </li>
-      </ul>
-      <form method='get' action='/search/' class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
-          id="query">
-        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-      </form>
-      {% if user.is_authenticated %}
-      <ul class="navbar-nav ml-2">
-        <li class="nav-item dropdown">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Welcome {{request.user}}
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="/logout/">Logout</a></div>
-        </li>
-      </ul>
-      {% else %}
-      <!-- Button to trigger sign up  modal -->
-      <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
-        Sign Up
-      </button>
-      <!-- Button to trigger log in  modal -->
-      <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
-        Log In
-      </button>
-      {% endif %}
+  {% load static %}
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;>
+    <a href="/"><img src="{% static "blog/coder.png"%}" style="width:4em;heigth:2em;"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">￼
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class=" collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {% block homeactive %}{% endblock homeactive%}">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% block trendactive %}{% endblock trendactive%}">
+        <a class="nav-link" href="/trending/">Trending<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item {% block aboutactive %}{% endblock aboutactive%}">
+        <a class="nav-link" href="/about/">About Us</a>
+      </li>
+    </ul>
+    <form method='get' action='/search/' class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
+        id="query">
+      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+    {% if user.is_authenticated %}
+    <ul class="navbar-nav ml-2">
+      <li class="nav-item dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Welcome {{request.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="/logout/">Logout</a></div>
+      </li>
+    </ul>
+    {% else %}
+    <!-- Button to trigger sign up  modal -->
+    <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#signupModal">
+      Sign Up
+    </button>
+    <!-- Button to trigger log in  modal -->
+    <button type="button" class="btn btn-primary mx-1" data-toggle="modal" data-target="#loginModal">
+      Log In
+    </button>
+    {% endif %}
     </div>
   </nav>
+  
   {% for message in messages %}
   <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
     <strong>Message: </strong> {{ message}}
@@ -151,7 +153,7 @@
     </div>
   </div>
   {% block body %} {% endblock %}
-  
+
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
