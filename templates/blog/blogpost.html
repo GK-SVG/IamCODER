@@ -25,38 +25,47 @@ background-color: white;
 color: black;
 border: 2px solid #e7e7e7;
 }
+.image{
+    width:19em;
+    height:9em;
+}
+@media screen and (max-width: 820px) {
+    .image{
+        width:10em;
+        height:5em;
+    }
+    
+}
 {% endblock css%}
 {% block body %}
 {%load static %}
-<div class="container my-5 container-sm">
+<div class="container my-5">
     <div class="row ">
-        <div class="col-md-7 col-7 cl-sm-7">
+        <div class="col-md-7 col-12 cl-sm-12">
             <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
             <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.writter}}({{post.view}} views)</b></p>
         </div>
         <div class="row mt-0">
-            <div class="col-md-8 col-8 cl-sm-8 blog-main">
-                <div class="col-auto d-none d-lg-block">
+            <div class="col-md-8 col-12 cl-sm-12 blog-main">
                     <img src="/media/{{post.thumbnail}}" class="bd-placeholder-img my-4 img-responsive"
-                        style="width:100%;height:20em;">
-                </div>
+                        style="width:100%;height:20rem;">
                 <div class="blog-post ">
                     <p>{{post.contant|safe}}</p>
                 </div><!-- /.blog-post -->
                 <div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width=""
                     data-layout="standard" data-action="like" data-size="small" data-share="true"></div>
             </div>
-            <div class="col mt-0">
+            <div class="col-md-4 col-12 col-sm-12 mt-0">
                 {% for latest in latests %}
                 <div
                     class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
                     <a href="/blogpost/{{latest.post_id}}">
                         <p class="mx-3 mt-2 text-dark"><b>{{latest.title}}</b></p>
                     </a>
-                    <div class="col-md-4 col-4 cl-sm-4 mx-0">
-                        <a href="/blogpost/{{latest.post_id}}"><img class="m-4" src="/media/{{latest.thumbnail}}"
-                                style="width:19em;height:11em;"></a>
-                    </div>
+                    
+                        <a href="/blogpost/{{latest.post_id}}"><img class="m-4 image" src="/media/{{latest.thumbnail}}"
+                                ></a>
+                    
                 </div>
                 {% endfor %}
             </div>
@@ -66,7 +75,7 @@ border: 2px solid #e7e7e7;
     {% if user.is_authenticated %}
     <form action="/postComment/" method="post">
         {% csrf_token %}
-        <div>
+        <div class="col-md-12">
             <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
             <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
         </div>
@@ -80,7 +89,7 @@ border: 2px solid #e7e7e7;
     <div class="row my-3 border m-0">
         <div class="col-md-1">
             {%load static%}
-            <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1">
+            <img src="{% static "blog/user.png"%}" class="img-circle w-100 p-1" style="width:1rem;height:4rem;">
         </div>
         <div class="col-md-11 col-11 cl-sm-11">
             <p class="mt-3 ml-0"> <b style="font-size:1em;">{{com.user.username}} </b>at {{com.time}} says</p>
