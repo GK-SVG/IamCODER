@@ -3,24 +3,24 @@
 IamCODER
 {% endblock title %}
 {%block css %}
-.search{
-  float: right;
-  
+
+.imgage{
+    width:25em;
+    height:14em;
 }
-.searchbtn{
-    float:right;
-   
+@media screen and (max-width: 820px) {
+    .imgage{
+        width:5em;
+        height:3em;
+    }
+    .show{
+        display:none;
+    }
 }
 {%endblock css%}
 {% block homeactive %}active {% endblock homeactive%}
 {% block body %}
 {% load static %}
-<div class="col-md-12 my-2">
-    <button class="btn btn-outline-primary  my-sm-0 searchbtn" type="submit">Search</button>
-  <form  class="search" method='get' action='/search/' class="form-inline my-2 my-lg-0">
-   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
-      id="query">
-  </form></div>
 <div class="container my-5">
     <div class="row my-2">
        <div class="col-md-9">
@@ -33,11 +33,11 @@ IamCODER
                 <div class="col p-4 d-flex flex-column position-static">
                     <h3 class="mb-0"><a href="blogpost/{{blog.post_id}}" class="text-dark">{{blog.title}}</a></h3>
                     <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
-                    <p class="card-text mb-auto preview">{{blog.contant|safe|truncatechars:250}}...</p>
+                    <p class="card-text mb-auto preview show">{{blog.contant|safe|truncatechars:250}}...</p>
                     <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
                 </div>
                 <div class="col-auto d-none d-lg-block">
-                    <img src="/media/{{blog.thumbnail}}" class="bd-placeholder-img my-4" style="width:25em;height:14em;">
+                    <img src="/media/{{blog.thumbnail}}" class="image bd-placeholder-img my-4">
                 </div>
             </div>
         </div>
@@ -48,11 +48,11 @@ IamCODER
     </div>
 </div>
 {% block js %}
-<script>
+<!-- <script>
 let previews=document.getElementsByClassName('preview'):
 Array.from(previews).forEach((element)=>{
     element.innerHTML = element.innerText;
-});
+}); -->
 </script>
 {% endblock js %}
 {% endblock body %}
