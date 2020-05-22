@@ -3,18 +3,23 @@
 IamCODER
 {% endblock title %}
 {%block css %}
-
-.imgage{
-    width:25em;
-    height:14em;
+.mg{
+    margin-top:1rem;
+    margin-bottum:1rem;
+    margin-left:1rem;
+    margin-right:1rem;
+}
+.image{
+    width:25rem;
+    height:14rem;
 }
 @media screen and (max-width: 820px) {
-    .imgage{
-        width:5em;
-        height:3em;
+    
+    h3{
+        font-size:20px;
     }
     .show{
-        display:none;
+        display:inline;
     }
 }
 {%endblock css%}
@@ -28,18 +33,19 @@ IamCODER
         </div>
         {% for blog in blogs reversed %}
         <div class="col-md-12">
+            <a href="blogpost/{{blog.post_id}}" class="stretched-link text-dark" style="text-decoration: none;">
             <div
                 class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h3 class="mb-0"><a href="blogpost/{{blog.post_id}}" class="text-dark">{{blog.title}}</a></h3>
+                <div>
+                    <img src="/media/{{blog.thumbnail}}" class="image bd-placeholder-img margin">
+                </div>
+                <div class="col p-4 d-flex flex-column position-static head">
+                    <h3 class="mb-0">{{blog.title}}</h3>
                     <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
                     <p class="card-text mb-auto preview show">{{blog.contant|safe|truncatechars:250}}...</p>
-                    <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
+                    
                 </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img src="/media/{{blog.thumbnail}}" class="image bd-placeholder-img my-4">
-                </div>
-            </div>
+            </div></a>
         </div>
         {% endfor %}
     </div>
@@ -48,11 +54,6 @@ IamCODER
     </div>
 </div>
 {% block js %}
-<!-- <script>
-let previews=document.getElementsByClassName('preview'):
-Array.from(previews).forEach((element)=>{
-    element.innerHTML = element.innerText;
-}); -->
 </script>
 {% endblock js %}
 {% endblock body %}
