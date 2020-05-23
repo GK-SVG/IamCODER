@@ -34,8 +34,11 @@ width:47rem;
 height:20rem;
 }
 .cimage{
-width:4rem;
-height:4rem;
+width:3rem;
+height:3rem;
+}
+.des{
+font-size:15px;
 }
 @media screen and (max-width: 820px) {
 .image{
@@ -49,17 +52,20 @@ margin-left:1.5em;
 }
 .pm{
 margin-left:1.5em;
- margin-right:1.5em; 
+margin-right:1.5em;
 }
 .pm2{
 margin-left:1.5em;
-margin-right:2em; 
+margin-right:1.5em;
 }
-
+.des{
+font-size:10px;
+}
 }
 {% endblock css%}
 {% block body %}
 {%load static %}
+{% load humanize %}
 <div class="container my-5">
     <div class="row ">
         <div class="col-md-7 col-12 cl-sm-12">
@@ -89,74 +95,71 @@ margin-right:2em;
         </div>
     </div>
     <div class="container">
-    <h3><b>Comments({{comment.count}})</b></h3>
-    {% if user.is_authenticated %}
-    <form action="/postComment/" method="post">
-        {% csrf_token %}
-        <div class="col-md-12">
-            <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
-            <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
-        </div>
-        <input type="hidden" class="form-control" name="reply_id" value="">
-        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
-    </form>
-    {% else %}
-    <div class="form-control"><b>Please Login to comment here</b></div>
-    {% endif %}
-    {% for com in comment reversed%}
-    <div class="row my-3 border m-0">
-        <div class="col-md-1">
-            {%load static%}
-            <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage">
-        </div>
-        <div class="col-md-11 col-11 cl-sm-11">
-            <p class="mt-3 ml-0"> <b style="font-size:1em;">{{com.user.username}} </b>at {{com.time}} says</p>
-        </div>
-        <div class="col-md-1 col-1 cl-sm-1"></div>
-        <div class="col-md-11 col-11 cl-sm-11 mb-3"> {{com.comment}}</div>
+        <h3><b>Comments({{comment.count}})</b></h3>
         {% if user.is_authenticated %}
-        <div class="col-md-1 col-1 cl-sm-1"></div>
-        <div class="col-md-11 col-11 cl-sm-11 mb-3">
-            <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse"
-                data-target="#reply{{com.comment_id}}" aria-expanded="false" aria-controls="reply{{com.comment_id}}">
-                reply
-            </button>
-            </p>
-            <div class="collapse" id="reply{{com.comment_id}}">
-                <div class="card card-body">
-                    <form action="/postComment/" method="post">
-                        {% csrf_token %}
-                        <div>
-                            <input type="text" class="form-control" name="comment" placeholder="Enter your reply">
-                            <input type="hidden" class="form-control" name="reply_id" value="{{com.comment_id}}">
-                        </div>
-                        <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
-                        <input type="submit" style="background-color:black;" class="btn btn-primary mt-2"
-                            value="submit">
-                    </form>
+        <form action="/postComment/" method="post">
+            {% csrf_token %}
+            <div class="col-md-12">
+                <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
+                <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
+            </div>
+            <input type="hidden" class="form-control" name="reply_id" value="">
+            <input type="submit" style="background-color:black;" class="btn btn-primary mt-2" value="submit">
+        </form>
+        {% else %}
+        <div class="form-control"><b>Please Login to comment here</b></div>
+        {% endif %}
+        {% for com in comment reversed%}
+        <div class="row my-3 border m-0">
+            <div class="col-md-12 col-sm-12 col-12 ">
+                {%load static%}
+
+                <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
+                <p class="mt-3 ml-0 des" > <b>{{com.user.username}}</b> {{com.time|naturaltime}}</p>
+
+            </div>
+            
+            <div class="col-md-12 mx-3 col-sm-12 col-12"> {{com.comment}}</div>
+            {% if user.is_authenticated %}
+            <div class="col-md-1 col-1 cl-sm-1"></div>
+            <div class="col-md-11 col-11 cl-sm-11 mb-3">
+                <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse"
+                    data-target="#reply{{com.comment_id}}" aria-expanded="false"
+                    aria-controls="reply{{com.comment_id}}">
+                    reply
+                </button>
+                </p>
+                <div class="collapse" id="reply{{com.comment_id}}">
+                    <div class="card card-body">
+                        <form action="/postComment/" method="post">
+                            {% csrf_token %}
+                            <div>
+                                <input type="text" class="form-control" name="comment" placeholder="Enter your reply">
+                                <input type="hidden" class="form-control" name="reply_id" value="{{com.comment_id}}">
+                            </div>
+                            <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
+                            <input type="submit" style="background-color:black;" class="btn btn-primary mt-2"
+                                value="submit">
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% else %}
+            {% else %}
 
-        <div class="form-control ml-5"><b>Please Login to reply here</b></div>
-        {%endif%}
-        {% for reply in replyDict|get_val:com.comment_id%}
-        <div class="col-md-1 col-1 cl-sm-1"></div>
-        <div class="col-md-1 col-1 cl-sm-1" style="background-color:#ffffcc;"><img src="{% static "blog/user.png"%}"
-                class="img-circle  p-1 cimage"></div>
-        <div class="col-md-10 col-10 cl-sm-10" style="background-color:#ffffcc;">
-            <p class="mt-3 ml-0"> <b style="font-size:20px;">{{reply.user.username}} </b>at {{reply.time}} says</p>
-        </div>
-        <div class="col-md-1 col-1 cl-sm-1"></div>
-        <div class="col-md-1 col-1 cl-sm-1" style="background-color:#ffffcc;"></div>
-        <div class="col-md-10 col-10 cl-sm-10" style="background-color:#ffffcc;">
-            {{reply.comment}}
+            <div class="form-control ml-5"><b>Please Login to reply here</b></div>
+            {%endif%}
+            {% for reply in replyDict|get_val:com.comment_id%}
+            <div class="col-md-12 mx-4 col-sm-12 col-12">
+                <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
+                <p class="mt-3 ml-0 des" > <b>{{reply.user.username}} </b> {{reply.time|naturaltime}}</p>
+            </div>  
+            <div class="col-md-12 mx-5 col-sm-12 col-12">
+                {{reply.comment}}
+            </div>
+            {% endfor %}
         </div>
         {% endfor %}
     </div>
-    {% endfor %}
-</div>
 </div>
 </div>
 {% endblock body %}
