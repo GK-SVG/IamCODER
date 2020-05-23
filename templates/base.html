@@ -17,11 +17,19 @@
   float: right;
   
 }
+footer {
+padding: 4rem 0;
+font-family: 'Philosopher', sans-serif;
+font-size: 1.25rem;
+color: #999999;
+text-align: center;
+}
 .searchbtn{
     float:right;
 }
 body{
   font-size:1rem;
+  color:#080707;
 }
     {%block css %}
 
@@ -31,8 +39,8 @@ body{
 
 <body>
   {% load static %}
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;>
-    <a href="/"><img src="{% static "blog/coder.png"%}" style="width:4em;heigth:2em;"></a>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+    <a href="/"><img src="{% static "blog/coder.png"%}" style="width:3.5rem;height:1.5rem;"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">￼
       <span class="navbar-toggler-icon"></span>
@@ -48,7 +56,7 @@ body{
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Tech-Giant
+          Tech-Menu
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="#">Google</a>
@@ -57,26 +65,15 @@ body{
           <a class="dropdown-item" href="#">Microsoft</a>
           <a class="dropdown-item" href="#">Gaming</a>
           <a class="dropdown-item" href="#">Mobiles</a>
+          <a class="dropdown-item" href="#">Electronics</a>
+          <a class="dropdown-item" href="#">Programming</a>
           </div>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Others
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="#">Mobiles</a>
-        <a class="dropdown-item" href="#">Electronics</a>
-        <a class="dropdown-item" href="#">Programming</a>
-        </div></li>
+      
       <li class="nav-item {% block aboutactive %}{% endblock aboutactive%}">
         <a class="nav-link" href="/about/">About Us</a>
       </li>
     </ul>
-    {% comment %} <form method='get' action='/search/' class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query"
-        id="query">
-      <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-    </form> {% endcomment %}
     {% if user.is_authenticated %}
     <ul class="navbar-nav ml-2">
       <li class="nav-item dropdown">
@@ -200,6 +197,18 @@ body{
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
   </script>
+  <footer class="my-0">
+    <a href="https://www.facebook.com/profile.php?id=100050134031510" style="color:#080707;">
+      <img src="https://i.ya-webdesign.com/images/why-does-my-png-have-a-black-background-5.png" style="width:2em;height:2em;">
+      <h2>Facebook</h2>
+    </a>
+    <a href="https://www.gmail.com" style="color:#080707;">
+      <img src="https://i.ya-webdesign.com/images/embed-a-png-in-gmail-2.png" style="width:2em;height:2em;">
+      <h2>Gmail</h2>
+    </a>
+    <p style="color:#080707;">gk32239@gmail.com</p>
+    <h3 style="color:#080707;">&copy;GautamKumar</h3>
+  </footer>
   {% block js %} {% endblock %}
 
 </body>
