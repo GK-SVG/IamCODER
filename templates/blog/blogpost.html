@@ -115,10 +115,10 @@ font-size:10px;
                 {%load static%}
 
                 <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
-                <p class="mt-3 ml-0 des" > <b>{{com.user.username}}</b> {{com.time|naturaltime}}</p>
+                <p class="mt-3 ml-0 des"> <b>{{com.user.username}}</b> {{com.time|naturaltime}}</p>
 
             </div>
-            
+
             <div class="col-md-12 mx-3 col-sm-12 col-12"> {{com.comment}}</div>
             {% if user.is_authenticated %}
             <div class="col-md-1 col-1 cl-sm-1"></div>
@@ -151,8 +151,8 @@ font-size:10px;
             {% for reply in replyDict|get_val:com.comment_id%}
             <div class="col-md-12 mx-4 col-sm-12 col-12">
                 <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
-                <p class="mt-3 ml-0 des" > <b>{{reply.user.username}} </b> {{reply.time|naturaltime}}</p>
-            </div>  
+                <p class="mt-3 ml-0 des"> <b>{{reply.user.username}} </b> {{reply.time|naturaltime}}</p>
+            </div>
             <div class="col-md-12 mx-5 col-sm-12 col-12">
                 {{reply.comment}}
             </div>

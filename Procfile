@@ -1,0 +1,1 @@
+web: gunicorn IamCODER.wsgi --log-file -
