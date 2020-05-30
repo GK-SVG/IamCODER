@@ -1,4 +1,6 @@
 Django==3.0.6
+dj-database-url==0.5.0
 gunicorn
 Pillow
+sqlparse==0.3.1
 whitenoise
