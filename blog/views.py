@@ -40,9 +40,8 @@ def search(request):
         blogs = []
     else:
         blogTitle = Blogpost.objects.filter(title__icontains=query)
-        blogContant = Blogpost.objects.filter(contant__icontains=query)
-        date= Blogpost.objects.filter(pub_date=query)
-        blogs = blogTitle.union(blogContant,date)
+        blogContant = Blogpost.objects.filter(contant__icontains=query)   
+        blogs = blogTitle.union(blogContant)
     if blogs.count==0:
         messages.warning(request,"No search Found please refine your search ")
     return render(request,'blog/search.html',{'blogs':blogs, 'query': query})

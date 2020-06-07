@@ -25,7 +25,6 @@ background-color: #ffffff; }
             </ul>
         </div>
         {%endif%}
-        {% with name=1 %}
         {% for blog in blogs reversed %}
         <div class="col-md-10">
             <div
@@ -42,7 +41,6 @@ background-color: #ffffff; }
             </div>
         </div>
         {% endfor %}
-        {% endwith %}
     </div>
 </div>
 {% endblock body %}
