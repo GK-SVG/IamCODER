@@ -4,4 +4,3 @@ gunicorn
 Pillow
 sqlparse==0.3.1
 whitenoise
-psycopg2
