@@ -137,6 +137,6 @@ def postComment(request):
     return redirect(f"/blogpost/{post.post_id}")
 
 def trending(request):
-    blogs = Blogpost.objects.order_by('-pub_date','view')[:4]
+    blogs = Blogpost.objects.order_by('-pub_date','view')[:10]
     params = {'blogs': blogs}
     return render(request,'blog/trending.html',params)
