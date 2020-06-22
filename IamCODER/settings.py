@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8l#^75@z*2umaacxnvjm*thdf_l=$0rr7i%ifeoy23!ebdd0z!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['icoderblog.herokuapp.com','127.0.0.1']
 
