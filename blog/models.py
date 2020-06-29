@@ -10,7 +10,7 @@ class Blogpost(models.Model):
     contant = models.TextField(max_length=5000)
     pub_date = models.DateTimeField(auto_now_add=True)
     view = models.IntegerField(default=0)
-    thumbnail = models.ImageField(upload_to='blog/images', default="")
+    thumbnail = models.CharField(max_length=250,default='')
 
     def __str__(self):
         return self.title 
