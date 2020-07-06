@@ -15,13 +15,19 @@ Including another URLconf
 """
 from django.urls import path
 from .views import (
-    PostListAPIView
+    PostListAPIView,
+    PostCreate,
+    PostUpdateAPIView,
+    PostDeleteAPIView,
 )
     
 
 
 urlpatterns = [
     path('',PostListAPIView.as_view(),name='PostListAPIView'),
+    path('edit/<int:post_id>/',PostUpdateAPIView.as_view(),name='Update'),
+    path('delete/<int:post_id>/',PostDeleteAPIView.as_view(),name='Delete'),
+    path('create/',PostCreate.as_view(),name='Create'),
     # path('about/',views.about,name='about'),
     # path('trending/',views.trending,name='trending'),
     # path('blogpost/<int:id>',views.blogpost,name='blogpost'),
