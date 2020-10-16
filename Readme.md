@@ -1,6 +1,6 @@
 Django tech blog  site
 
-
+click on the link below to checkout.
 
 https://icoderblog.herokuapp.com/
 
