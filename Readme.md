@@ -1,6 +1,6 @@
 Django tech blog  site
 
-
+click on the link below to checkout.
 
 https://icoderblog.herokuapp.com/
 
@@ -52,3 +52,4 @@ $ python manage.py runserver
 ## Contributing
 
 I love contributions, so please feel free to fix bugs, improve things, provide documentation. Just send a pull request.
+![alt text](https://github.com/GK-SVG/IamCODER/blob/master/blog/static/blog/coderscreenshot.png)
