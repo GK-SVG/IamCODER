@@ -21,10 +21,27 @@ https://icoderblog.herokuapp.com/
 ![alt text](https://github.com/GK-SVG/IamCODER/blob/master/blog/static/blog/icoder4.png)
 ![alt text](https://github.com/GK-SVG/IamCODER/blob/master/blog/static/blog/icoder5.png)
 
+## Want To Learn Django
+**Here Are Some Important Channels on Youtube(Search channel name on Youtube)**
+<ul>
+    <li>CodeWithHarry</li>
+    <li>geekyshows</li>
+    <li>PyPlane</li>
+    <li>CodingForEnterprenours</li>
+    <li>JustDjango</li>
+</ul>
 
-# Django Project Template
+**Here Are Some Important Website(Search website on Google)**
+<ul>
+    <li>https://docs.djangoproject.com/en/3.0/intro/tutorial01/</li>
+    <li>https://djangogirls.org/</li>
+    <li>https://medium.com/</li>
+    <li>https://dev.to/</li>
+</ul>
 
-The clean, fast and right way to start a new Django `3.0.7` powered website.
+# Django Project
+
+The clean, fast and right way to start a new <a href="https://docs.djangoproject.com/en/3.0/intro/tutorial01/">Django</a>`3.0.7` powered website.
 
 ## Getting Started
 
