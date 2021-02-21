@@ -73,7 +73,10 @@
             Welcome {{request.user}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="/logout/">Logout</a></div>
+            <a class="dropdown-item" href="#" >MyProfile</a>
+            <a class="dropdown-item" href="{% url 'Create_Blog' %}">CreateBlog</a>
+            <a class="dropdown-item" href="/logout/">Logout</a>
+          </div>
         </li>
       </ul>
       {% else %}

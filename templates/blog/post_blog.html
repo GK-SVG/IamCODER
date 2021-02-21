@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}
+IamCODER
+{% endblock title %}
+{% block css %}
+#myTextarea{
+height: 80vh;
+}
+{% endblock css %}
+{% block body %}
+<script type="text/javascript" src='https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js'
+    referrerpolicy="origin">
+</script>
+
+<div class="container mt-5">
+<form  action="{% url 'Create_Blog' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Title</label>
+        <input type="title" class="form-control" placeholder="Title" name="title" required>
+    </div>
+    <div class="form-group">
+        <label>Image Link</label>
+        <input type="url" class="form-control" placeholder="Image Link" name="img_url" required>
+    </div>
+    <div class="form-group">
+        <label>Contant</label>
+        <textarea class="form-control" id="myTextarea" name="contant" ></textarea>    
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#myTextarea',
+        plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'table emoticons template paste help'
+        ],
+        toolbar: 'undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | ' +
+            'bullist numlist outdent indent | link image | print preview media fullpage | ' +
+            'forecolor backcolor emoticons | help',
+        menu: {
+            favs: {
+                title: 'My Favorites',
+                items: 'code visualaid | searchreplace | spellchecker | emoticons'
+            }
+        },
+        menubar: 'favs file edit view insert format tools table help',
+        
+    });
+</script>
+{% endblock body %}

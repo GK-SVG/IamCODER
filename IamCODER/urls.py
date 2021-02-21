@@ -24,6 +24,5 @@ admin.site.index_title = "Welcome to IamCODER admin panal"
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('blog.urls')),
-    path('api/',include('blog.api.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

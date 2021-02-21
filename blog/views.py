@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 import django.templatetags
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def home(request):
@@ -140,3 +141,19 @@ def trending(request):
     blogs = Blogpost.objects.order_by('-pub_date','view')[:10]
     params = {'blogs': blogs}
     return render(request,'blog/trending.html',params)
+
+
+def post_blog(request):
+    if request.user:
+        if request.method=="POST":
+            title = request.POST.get("title")
+            img_url = request.POST.get("img_url")
+            contant = request.POST.get("contant")
+            user = request.user
+            post = Blogpost(user=user,title=title,IMG_url=img_url,contant=contant)
+            post.save()
+            messages.success(request,"Blog Posted Successfully")
+            return redirect("/")
+        return render(request,"blog/post_blog.html")
+    messages.error(request,"Login For create New Blog")
+    return redirect("/")
