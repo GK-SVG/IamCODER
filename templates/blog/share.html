@@ -1,0 +1,30 @@
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Share</button>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <div class="modal-body d-flex justify-content-center" >
+                
+                <a class="mx-2" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}">
+                    <img src="https://i.pinimg.com/600x315/c7/92/c1/c792c132eb020a6486f8d3755dcbe3dd.jpg" style="width:3rem;height:3rem;">
+                </a>
+                <a class="mx-2" href="https://twitter.com/home?status={{share_string}}%20{{request.build_absolute_uri}}">
+                    <img src="https://image.shutterstock.com/image-photo/valencia-spain-march-05-2017-260nw-601425683.jpg" style="width:3rem;height:3rem;">
+                    </a>
+                <a class="mx-2"href="https://www.linkedin.com/shareArticle?mini=true&url={{request.build_absolute_uri}}&title={{share_string}}&summary={{share_string}}&source={{request.build_absolute_uri}}">
+                    <img src="http://assets.stickpng.com/images/58e91afdeb97430e81906504.png" style="width:2.4rem;height:2.4rem;">
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate,login,logout
 import django.templatetags
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from urllib.parse import quote_plus
 # Create your views here.
 
 def home(request):
@@ -19,7 +20,12 @@ def about(request):
 
 def blogpost(request,id):
     latests=Blogpost.objects.order_by('-pub_date')[:3]
-    post = Blogpost.objects.filter(post_id = id)[0]
+    try:
+        post = Blogpost.objects.get(post_id = id)
+        share_string = quote_plus(post.title)
+    except:
+        messages.error(request,"Sommething Went wrong")
+        return redirect("/")
     post.view= post.view+1
     post.save()
     comment = BlogCommet.objects.filter(post=post,parent=None)
@@ -30,7 +36,7 @@ def blogpost(request,id):
             replyDict[reply.parent.comment_id]=[reply]
         else:
             replyDict[reply.parent.comment_id].append(reply)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,'latests':latests})
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,'latests':latests,"share_string":share_string})
 
 
 def search(request):

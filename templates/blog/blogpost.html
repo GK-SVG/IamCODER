@@ -77,7 +77,9 @@ font-size:10px;
                 <img src="{{post.thumbnail}}" class="image2 bd-placeholder-img my-4 img-responsive">
                 <div class="blog-post pm">
                     <p class="">{{post.contant|safe}}</p>
-                </div><!-- /.blog-post -->
+                </div>
+
+                
             </div>
             <div class="col-md-4 col-12 col-sm-12 mt-0">
                 {% for latest in latests %}
@@ -92,8 +94,11 @@ font-size:10px;
                 </div>
                 {% endfor %}
             </div>
+
         </div>
     </div>
+    {% include "blog/share.html" %}
+    
     <div class="container">
         <h3><b>Comments({{comment.count}})</b></h3>
         {% if user.is_authenticated %}
@@ -162,4 +167,6 @@ font-size:10px;
     </div>
 </div>
 </div>
+
+
 {% endblock body %}
