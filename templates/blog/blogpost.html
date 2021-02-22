@@ -78,8 +78,6 @@ font-size:10px;
                 <div class="blog-post pm">
                     <p class="">{{post.contant|safe}}</p>
                 </div>
-
-                
             </div>
             <div class="col-md-4 col-12 col-sm-12 mt-0">
                 {% for latest in latests %}
@@ -88,13 +86,10 @@ font-size:10px;
                     <a href="/blogpost/{{latest.post_id}}">
                         <p class="mx-3 mt-2 text-dark"><b>{{latest.title}}</b></p>
                     </a>
-
-                    <a href="/blogpost/{{latest.post_id}}"><img class="m-4 image" src="{{latest.thumbnail}}"></a>
-
+                    <a href="/blogpost/{{latest.post_id}}"><img class="m-4 image" src="{{latest.IMG_url}}"></a>
                 </div>
                 {% endfor %}
             </div>
-
         </div>
     </div>
     {% include "blog/share.html" %}
@@ -167,6 +162,4 @@ font-size:10px;
     </div>
 </div>
 </div>
-
-
 {% endblock body %}
