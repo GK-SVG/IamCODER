@@ -1,58 +1,26 @@
 {% extends 'base.html' %}
 
-{%block css %}
-.mg{
-    margin-top:1rem;
-    margin-bottum:1rem;
-    margin-left:1rem;
-    margin-right:1rem;
-}
-.image{
-    width:25rem;
-    height:14rem;
-}
-@media screen and (max-width: 820px) {
-    
-    h3{
-        font-size:20px;
-    }
-    .show{
-        display:inline;
-    }
-}
-{%endblock css%}
+
 {% block homeactive %}active {% endblock homeactive%}
 {% block body %}
 {% load static %}
 <div class="container" style="margin-top:6em;">
     <div class="row">
-       <div class="col-md-9">
+       <div class="col-md-12">
         <h3 ><b>Latest Tech News</b></h3>
         </div>
         {% for blog in blogs reversed %}
-        <div class="col-md-12">
-            <a href="blogpost/{{blog.post_id}}" class="stretched-link text-dark" style="text-decoration: none;">
-            <div
-                class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
-                <div>
-                    <img src="{{blog.IMG_url}}" class="image bd-placeholder-img mb-0">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
+            <div class="card" style="width: 22rem;">
+                <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                <div class="card-body">
+                <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
+                <b>{{blog.writter}}</b>{{blog.pub_date}}({{blog.view}} views)
+                <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
                 </div>
-                <div class="col p-4 d-flex flex-column position-static head">
-                    <h3 class="mb-0">{{blog.title}}</h3>
-                    
-                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
-                    <p class="card-text mb-auto preview show">{{blog.contant|safe|truncatechars:250}}...</p>
-                    
-                </div>
-            </div></a>
+            </div>
         </div>
         {% endfor %}
     </div>
-    <div class="row my-2">
-      
-    </div>
 </div>
-{% block js %}
-</script>
-{% endblock js %}
 {% endblock body %}

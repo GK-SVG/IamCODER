@@ -8,6 +8,8 @@ import django.templatetags
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from urllib.parse import quote_plus
+from django.http import JsonResponse
+from django.core import serializers
 # Create your views here.
 
 def home(request):
@@ -138,10 +140,10 @@ def postComment(request):
             parent = BlogCommet.objects.get(comment_id=parentId)
             comment = BlogCommet(comment=comment,user=user,post=post,parent=parent)
             comment.save()
-            messages.success(request,"Reply posted successfully")
-        
-              
+            messages.success(request,"Reply posted successfully")      
     return redirect(f"/blogpost/{post.post_id}")
+
+
 
 def trending(request):
     blogs = Blogpost.objects.order_by('-pub_date','view')[:10]
@@ -149,17 +151,20 @@ def trending(request):
     return render(request,'blog/trending.html',params)
 
 
+
 def post_blog(request):
     if request.user:
-        if request.method=="POST":
+        if request.is_ajax and request.method=="POST":
             title = request.POST.get("title")
             img_url = request.POST.get("img_url")
             contant = request.POST.get("contant")
             user = request.user
             post = Blogpost(user=user,title=title,IMG_url=img_url,contant=contant)
             post.save()
-            messages.success(request,"Blog Posted Successfully")
-            return redirect("/")
+            messages.success(request,"Post Created Successfully")
+            return redirect("blogpost",post.post_id)
         return render(request,"blog/post_blog.html")
     messages.error(request,"Login For create New Blog")
     return redirect("/")
+
+    

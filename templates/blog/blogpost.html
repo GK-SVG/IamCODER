@@ -67,32 +67,21 @@ font-size:10px;
 {%load static %}
 {% load humanize %}
 <div class="container my-5">
-    <div class="row ">
-        <div class="col-md-7 col-12 cl-sm-12">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-10 col-12 cl-sm-12">
             <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
-            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.writter}}({{post.view}} views)</b></p>
+            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.writter}}({{post.view}} views)</b></p><hr>
+            {% include "blog/share.html" %}
         </div>
-        <div class="row mt-0">
-            <div class="col-md-8 col-12 cl-sm-12 blog-main">
+        <div class="row d-flex justify-content-center mt-0">
+            <div class="col-md-10 col-12 cl-sm-12 blog-main">
                 <img src="{{post.IMG_url}}" class="image2 bd-placeholder-img my-4 img-responsive">
                 <div class="blog-post pm">
                     <p class="">{{post.contant|safe}}</p>
                 </div>
             </div>
-            <div class="col-md-4 col-12 col-sm-12 mt-0">
-                {% for latest in latests %}
-                <div
-                    class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative pm2">
-                    <a href="/blogpost/{{latest.post_id}}">
-                        <p class="mx-3 mt-2 text-dark"><b>{{latest.title}}</b></p>
-                    </a>
-                    <a href="/blogpost/{{latest.post_id}}"><img class="m-4 image" src="{{latest.IMG_url}}"></a>
-                </div>
-                {% endfor %}
-            </div>
         </div>
     </div>
-    {% include "blog/share.html" %}
     
     <div class="container">
         <h3><b>Comments({{comment.count}})</b></h3>

@@ -19,25 +19,19 @@ background-color: #ffffff; }
         <h3 ><b>Trending Tech News</b></h3>
         </div>
         {% for blog in blogs%}
-        <div class="col-md-12">
-         <a href="/blogpost/{{blog.post_id}}" class="stretched-link text-dark" style="text-decoration: none;">
-            <div
-                class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
-                 <div>
-                    <img src="{{blog.thumbnail}}" class="image bd-placeholder-img mb-0">
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
+            <div class="card" style="width: 22rem;">
+                <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                <div class="card-body">
+                <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
+                <b>{{blog.writter}}</b>{{blog.pub_date}}({{blog.view}} views)
+                <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
                 </div>
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h3 class="mb-0">{{blog.title|truncatechars:50}}</h3>
-                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}} views)</div>
-                    <p class="card-text mb-auto preview">{{blog.contant|safe|truncatechars:250}}...</p>
-                </div>
-            </div></a>
+            </div>
         </div>
         {% endfor %}
     </div>
-    <div class="row my-2">
-      
-    </div>
+    
 </div>
 {% block js %}
 <script>

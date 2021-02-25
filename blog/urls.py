@@ -19,7 +19,7 @@ from.import views
 urlpatterns = [
     path('',views.home,name='home'),
     path('about/',views.about,name='about'),
-    path("create_blog/",views.post_blog,name="Create_Blog"),
+    path("post_blog/",views.post_blog,name="Post_Blog"),
     path('trending/',views.trending,name='trending'),
     path('blogpost/<int:id>',views.blogpost,name='blogpost'),
     path('search/blogpost/<int:id>',views.blogpost,name='blogpost'),

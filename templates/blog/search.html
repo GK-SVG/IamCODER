@@ -2,10 +2,6 @@
 {% block title %}
 IamCODER
 {% endblock title %}
-{%block css %}
-body {
-background-color: #ffffff; }
-{%endblock css%}
 {% block homeactive %}active {% endblock homeactive%}
 {% block body %}
 {% load static %}
@@ -25,22 +21,20 @@ background-color: #ffffff; }
             </ul>
         </div>
         {%endif%}
-        {% for blog in blogs reversed %}
-        <div class="col-md-10">
-            <div
-                class="row no-gutters border rounded overflow-hidden flex-md-row my-4 shadow-sm h-md-250 position-relative">
-                <div class="col p-4 d-flex flex-column position-static">
-                    <h3 class="mb-0">{{blog.title}}</h3>
-                    <div class="mb-1 text-muted"><b>{{blog.writter}}</b> {{blog.pub_date}}({{blog.view}}  views)</div>
-                    <p class="card-text mb-auto">{{blog.contant|truncatechars:180}}...</p>
-                    <a href="blogpost/{{blog.post_id}}" class="stretched-link">Continue reading</a>
-                </div>
-                <div class="col-auto d-none d-lg-block">
-                    <img src="{{blog.thumbnail}}" class="bd-placeholder-img my-4" style="width:100%;height:80%;">
+        <div class="row">
+            {% for blog in blogs reversed %}
+            <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
+                <div class="card" style="width: 22rem;">
+                    <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                    <div class="card-body">
+                        <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
+                        <b>{{blog.writter}}</b>{{blog.pub_date}}({{blog.view}} views)
+                        <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
 {% endblock body %}
