@@ -168,3 +168,10 @@ def post_blog(request):
     return redirect("/")
 
     
+def user_posts(request):
+    if request.user:
+        user = request.user
+        posts = Blogpost.objects.filter(user=user)
+        print("user-posts--",posts)
+        return render(request,"blog/user_posts.html",{"blogs":posts})
+    return HttpResponse("Something Went Wrong")

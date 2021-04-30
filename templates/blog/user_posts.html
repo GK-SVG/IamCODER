@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+IamCODER
+{% endblock title %}
+{% block body %}
+<div class="container mt-5">
+    <div class="row my-2">
+       <div class="col-md-9 mt-3">
+        <h3 ><b>My Posts</b></h3>
+        </div>
+        {% for blog in blogs%}
+        <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
+            <div class="card" style="width: 22rem;">
+                <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                <div class="card-body">
+                <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
+                <b>{{blog.writter}}</b>{{blog.pub_date}}({{blog.view}} views)
+                <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock body %}

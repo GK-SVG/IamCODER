@@ -28,5 +28,6 @@ urlpatterns = [
     path("login/", views.handlelogin, name="handlelogin"),
     path("logout/", views.handlelogout, name="handlelogout"),
     path("postComment/", views.postComment, name="postComment"),
+    path("myprofile/",views.user_posts,name="UserPosts")
 ]
 
