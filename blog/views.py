@@ -1,5 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,HttpResponseRedirect
+from rest_framework.response import Response
+from rest_framework import status
 from django.contrib import messages
 from.models import Blogpost, BlogCommet
 from django.contrib.auth.models import User
@@ -8,14 +10,31 @@ import django.templatetags
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from urllib.parse import quote_plus
+from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.core import serializers
 # Create your views here.
 
+blogCount = Blogpost.objects.all().count()
+
 def home(request):
-    blogs = Blogpost.objects.all()
-    params = {'blogs': blogs}
+    global_blog_count = 3
+    print('count--',blogCount)
+    blogs = Blogpost.objects.all()[:global_blog_count]
+    params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
     return render(request,'blog/home.html',params)
+
+
+def load_more_blogs(request,global_blog_count):
+    increase_blog_count = 3
+    blogs = Blogpost.objects.all()[global_blog_count:(global_blog_count+increase_blog_count)]
+    # print('blogs --',blogs)
+    data = list({'blogs':blogs})
+    data = serializers.serialize("json", blogs)
+    # print('serializers blogs --',data)
+
+    return HttpResponse(data,content_type="application/json")
+
 
 def about(request):
     return render(request,'blog/about.html')
@@ -249,3 +268,5 @@ def edit_post(request,id):
         except:
             messages.error(request,"Post not available")
             return redirect("/")
+
+
