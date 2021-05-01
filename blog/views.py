@@ -211,4 +211,41 @@ def delete_post(request,id):
         except:
             messages.error(request,"Post not available")
             return redirect("/")
-    
+
+def edit_post(request,id):
+    try:
+        user = request.session['user']
+        print("user==",user)
+    except:
+        messages.warning(request,"Please Login")
+        return redirect("/")
+    if user and request.method=="GET":
+        try:
+            post = Blogpost.objects.get(post_id=id)
+            if request.user==post.user:
+                return render(request,"blog/edit_post.html",{"post":post})
+            else:
+                messages.error(request,"You are not Authenticated for this action")
+            return redirect("/")
+        except:
+            messages.error(request,"Post not available")
+            return redirect("/")
+    if user and request.method=="POST":
+        title = request.POST.get("title")
+        img = request.POST.get("img_url")
+        contant = request.POST.get("contant")
+        try:
+            post = Blogpost.objects.get(post_id=id)
+            if request.user==post.user:
+                post.title = title
+                post.IMG_url = img
+                post.contant = contant
+                post.save()
+                messages.success(request,"Post Edited Successfully")
+                return redirect("blogpost",post.post_id)
+            else:
+                messages.error(request,"You are not Authenticated for this action")
+            return redirect("/")
+        except:
+            messages.error(request,"Post not available")
+            return redirect("/")

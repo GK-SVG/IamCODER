@@ -14,19 +14,19 @@ height: 80vh;
 
 <div class="container mt-5">
 <div id="myaleart"></div>
-<form  id="blog-form" method="POST" action="{% url 'Post_Blog' %}">
+<form  id="blog-form" method="POST" action="{% url 'EditPost' post.post_id %}">
     {% csrf_token %}
     <div class="form-group">
         <label>Title</label>
-        <input type="title" class="form-control" placeholder="Title" name="title" required>
+        <input type="title" class="form-control" placeholder="Title" name="title" value="{{post.title}}" required>
     </div>
     <div class="form-group">
         <label>Image Link</label>
-        <input type="url" class="form-control" placeholder="Image Link" name="img_url" required>
+        <input type="url" class="form-control" placeholder="Image Link" name="img_url" value="{{post.IMG_url}}" required>
     </div>
     <div class="form-group">
         <label>Contant</label>
-        <textarea class="form-control" id="myTextarea" name="contant" ></textarea>    
+        <textarea class="form-control" id="myTextarea" name="contant" >{{post.contant}}</textarea>    
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
@@ -52,5 +52,4 @@ height: 80vh;
         
     });
 </script>
-
 {% endblock body %}

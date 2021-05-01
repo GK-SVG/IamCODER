@@ -29,6 +29,8 @@ urlpatterns = [
     path("logout/", views.handlelogout, name="handlelogout"),
     path("postComment/", views.postComment, name="postComment"),
     path("myPosts/",views.user_posts,name="UserPosts"),
-    path("deletePost/<int:id>",views.delete_post,name="DeletePost")
+    path("deletePost/<int:id>",views.delete_post,name="DeletePost"),
+    path("editPost/<int:id>",views.edit_post,name="EditPost")
+
 ]
 
