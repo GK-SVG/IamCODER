@@ -96,6 +96,8 @@ def signup(request):
             myuser.first_name= fname
             myuser.last_name= lname
             myuser.save()
+            login(request,myuser)
+            request.session['user'] == myuser
             messages.success(request,'Your account created succesfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         
@@ -109,6 +111,7 @@ def handlelogin(request):
         user = authenticate(username=username,password=password)
         if user is not None:
             login(request,user)
+            request.session['user'] = user.username
             messages.success(request,"Successfully Logged in")
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
@@ -119,6 +122,7 @@ def handlelogin(request):
 
 def handlelogout(request):
     logout(request)
+    request.session.flush()
     messages.success(request,"Successfully Logged Out")
     return redirect('/')
 
@@ -153,7 +157,13 @@ def trending(request):
 
 
 def post_blog(request):
-    if request.user:
+    try:
+        user = request.session['user']
+        print("user==",user)
+    except:
+        messages.warning(request,"Please Login")
+        return redirect("/")
+    if user:
         if request.is_ajax and request.method=="POST":
             title = request.POST.get("title")
             img_url = request.POST.get("img_url")
@@ -169,9 +179,36 @@ def post_blog(request):
 
     
 def user_posts(request):
-    if request.user:
+    try:
+        user = request.session['user']
+        print("user==",user)
+    except:
+        messages.warning(request,"Please Login")
+        return redirect("/")
+    if user:
         user = request.user
         posts = Blogpost.objects.filter(user=user)
-        print("user-posts--",posts)
         return render(request,"blog/user_posts.html",{"blogs":posts})
     return HttpResponse("Something Went Wrong")
+
+
+def delete_post(request,id):
+    try:
+        user = request.session['user']
+        print("user==",user)
+    except:
+        messages.warning(request,"Please Login")
+        return redirect("/")
+    if user:
+        try:
+            post = Blogpost.objects.get(post_id=id)
+            if request.user==post.user:
+                post.delete()
+                messages.success(request,"Post Deleted Successfully")
+            else:
+                messages.error(request,"You are not Authenticated for this action")
+            return redirect("/")
+        except:
+            messages.error(request,"Post not available")
+            return redirect("/")
+    
