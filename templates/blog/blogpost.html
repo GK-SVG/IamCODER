@@ -70,7 +70,7 @@ font-size:10px;
     <div class="row d-flex justify-content-center">
         <div class="col-md-10 col-12 cl-sm-12">
             <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
-            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.writter}}({{post.view}} views)</b></p><hr>
+            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p><hr>
             {% include "blog/share.html" %}
         </div>
         <div class="row d-flex justify-content-center mt-0">

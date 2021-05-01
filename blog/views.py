@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib import messages
 from.models import Blogpost, BlogCommet
 from django.contrib.auth.models import User
@@ -71,33 +71,33 @@ def signup(request):
             messages.error(request,'Your account not created Because')
             messages.error(request,'Username must have maximum 12 Charcters')
             messages.error(request,'Please fill SIGN UP form again')
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
         # username charkters checker
         if not username.isalnum() :
              messages.error(request,'Your account not created Because')
              messages.error(request,'Username only contain alphaNumeric value')
              messages.error(request,'Please fill SIGN UP form again')
-             return redirect('/')       
+             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))     
 
         # password1 and password2 checker     
         if password != password2 :
             messages.error(request,'Your account not created Because')
             messages.error(request,'Passwords do not match')
             messages.error(request,'Please fill SIGN UP form again')
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         # creating user
         try:
             myuser=User.objects.get(username=username)
             messages.error(request,'The username you entered has already been taken. Please try another username.')
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         except:
             myuser = User.objects.create_user(username=username,email=email,password=password)
             myuser.first_name= fname
             myuser.last_name= lname
             myuser.save()
             messages.success(request,'Your account created succesfully')
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         
     else:
         return HttpResponse('404 - Not Found')
@@ -110,10 +110,10 @@ def handlelogin(request):
         if user is not None:
             login(request,user)
             messages.success(request,"Successfully Logged in")
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         else:
             messages.error(request,"Invalid Credentials, Please try again")
-            return redirect('/')
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
     else:
         return HttpResponse('Error Not Found 404')
 
@@ -165,7 +165,7 @@ def post_blog(request):
             return redirect("blogpost",post.post_id)
         return render(request,"blog/post_blog.html")
     messages.error(request,"Login For create New Blog")
-    return redirect("/")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
     
 def user_posts(request):
