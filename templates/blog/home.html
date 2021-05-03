@@ -14,7 +14,7 @@
             <div class="card" style="width: 22rem;">
                 <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                 <div class="card-body">
-                    <h5 class="card-title">{{blog.title|truncatechars:50}}</h5>
+                    <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
                     {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
                     <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
                 </div>
@@ -31,7 +31,7 @@
 <script>
     var current_post_count = Number("{{ global_blog_count }}")
     var blogCount = Number("{{blogCount}}")
-
+    
     function load_blogs() {
         let url = `/loadMore/${current_post_count}`
         fetch(url, {
@@ -48,6 +48,8 @@
                     btn.onclick = ""
                     btn.innerText = "No Posts to load"
                 }
+                
+                
                 add_Blogs(response)
             }).catch((err) => {
                 console.log('error--', err)
@@ -63,14 +65,14 @@
                         <div class="card" style="width: 22rem;">
                             <img src="${blog.fields.IMG_url}" class="card-img-top" style="height:12rem;" alt="Img not found">
                             <div class="card-body">
-                                <h5 class="card-title">${blog.fields.title.slice(0,50)}</h5>
+                                <h5 class="card-title">${blog.fields.title.slice(0,30)}</h5>
                                 ${getDate(blog.fields.pub_date)} <b>${getUserName(blog.fields.user)}(${blog.fields.view} views)</b>
-                                <a href="/blogpost/${blog.pk}/" class="btn btn-primary">Read</a>
+                                <a href="/blogpost/${blog.pk}" class="btn btn-primary">Read</a>
                             </div>
                         </div>
                     </div>`
         });
-
+        
         document.querySelector("#all_blogs").insertAdjacentHTML('beforeend',html)
         // all_blogs.append(html)
     }

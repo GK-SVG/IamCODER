@@ -1,8 +1,6 @@
 {% if request.user == post.user %}
 <a href="{% url 'DeletePost' post.post_id %}" class="btn btn-danger" >Delete</a>
 <a href="{% url 'EditPost' post.post_id %}" class="btn btn-warning">Edit</a>
-{% else %}
-<button type="button" class="btn btn-primary">Follow</button>
 {% endif %}
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Share</button>
 
