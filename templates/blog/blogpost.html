@@ -68,13 +68,13 @@ font-size:10px;
 {% load humanize %}
 <div class="container my-5">
     <div class="row d-flex justify-content-center">
-        <div class="col-md-12 col-12 cl-sm-12">
+        <div class="col-md-12 col-12 col-sm-12">
             <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
             <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p><hr>
             {% include "blog/share.html" %}
         </div>
         <div class="row d-flex justify-content-center mt-0">
-            <div class="col-md-12 col-12 cl-sm-12 blog-main">
+            <div class="col-md-12 col-12 col-sm-12 blog-main">
                 <img src="{{post.IMG_url}}" class="image2 bd-placeholder-img my-4 img-responsive"><hr>
                 <div class="blog-post pm">
                     <p class="">{{post.contant|safe}}</p><hr>
@@ -110,8 +110,8 @@ font-size:10px;
 
             <div class="col-md-12 mx-3 col-sm-12 col-12"> {{com.comment}}</div>
             {% if user.is_authenticated %}
-            <div class="col-md-1 col-1 cl-sm-1"></div>
-            <div class="col-md-11 col-11 cl-sm-11 mb-3">
+            <div class="col-md-1 col-1 col-sm-1"></div>
+            <div class="col-md-11 col-11 col-sm-11 mb-3">
                 <button class="btn-sm btn-primary" style="background-color:black;" type="button" data-toggle="collapse"
                     data-target="#reply{{com.comment_id}}" aria-expanded="false"
                     aria-controls="reply{{com.comment_id}}">

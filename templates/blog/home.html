@@ -5,7 +5,7 @@
 {% block body %}
 {% load static %}
 <div class="container" style="margin-top:6em;">
-    <div class="row" id="all_blogs">
+    <div class="row d-flex justify-content-center" id="all_blogs">
         <div class="col-md-12">
             <h3><b>Latest Tech News</b></h3>
         </div>
@@ -63,14 +63,16 @@
         data.forEach(blog => {
 
             html += `<div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
-                        <div class="card" style="width: 22rem;">
-                            <img src="${blog.fields.IMG_url}" class="card-img-top" style="height:12rem;" alt="Img not found">
-                            <div class="card-body">
-                                <h5 class="card-title">${blog.fields.title.slice(0,30)}</h5>
-                                ${getDate(blog.fields.pub_date)} <b>${getUserName(blog.fields.user)}(${blog.fields.view} views)</b>
-                                <a href="/blogpost/${blog.pk}" class="btn btn-primary">Read</a>
+                        <a href="/blogpost/${blog.pk}" style="text-decoration: none;">
+                            <div class="card" style="width: 22rem; min-height: 20rem;">
+                                <img src="${blog.fields.IMG_url}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                                <div class="card-body" style="color: black;">
+                                    <h5 class="card-title">${blog.fields.title.slice(0,60)}</h5>
+                                    ${getDate(blog.fields.pub_date)} <b>${getUserName(blog.fields.user)}(${blog.fields.view} views)</b>
+                                    
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>`
         });
 
