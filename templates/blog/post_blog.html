@@ -16,6 +16,8 @@ height: 80vh;
 <div id="myaleart"></div>
 <form  id="blog-form" method="POST" action="{% url 'Post_Blog' %}">
     {% csrf_token %}
+    <label>Public</label>
+    <input type="checkbox"  placeholder="" name="public" checked ><br>  
     <div class="form-group">
         <label>Title</label>
         <input type="title" class="form-control" placeholder="Title" name="title" required>
@@ -28,6 +30,7 @@ height: 80vh;
         <label>Contant</label>
         <textarea class="form-control" id="myTextarea" name="contant" ></textarea>    
     </div>
+    
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>

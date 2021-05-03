@@ -11,7 +11,7 @@ class Blogpost(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     view = models.IntegerField(default=0)
     IMG_url = models.CharField(max_length=250,default='')
-
+    public = models.BooleanField(default=True)
     def __str__(self):
         return self.title 
 

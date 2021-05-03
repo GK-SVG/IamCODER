@@ -20,14 +20,14 @@ blogCount = Blogpost.objects.all().count()
 def home(request):
     global_blog_count = 10
     print('count--',blogCount)
-    blogs = Blogpost.objects.all()[:global_blog_count]
+    blogs = Blogpost.objects.filter()[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
     return render(request,'blog/home.html',params)
 
 
 def load_more_blogs(request,global_blog_count):
     increase_blog_count = 3
-    blogs = Blogpost.objects.all()[global_blog_count:(global_blog_count+increase_blog_count)]
+    blogs = Blogpost.objects.filter()[global_blog_count:(global_blog_count+increase_blog_count)]
     # print('blogs --',blogs)
     data = list({'blogs':blogs})
     data = serializers.serialize("json", blogs)
@@ -40,7 +40,6 @@ def about(request):
     return render(request,'blog/about.html')
 
 def blogpost(request,id):
-    latests=Blogpost.objects.order_by('-pub_date')[:3]
     try:
         post = Blogpost.objects.get(post_id = id)
         share_string = quote_plus(post.title)
@@ -57,7 +56,7 @@ def blogpost(request,id):
             replyDict[reply.parent.comment_id]=[reply]
         else:
             replyDict[reply.parent.comment_id].append(reply)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,'latests':latests,"share_string":share_string})
+    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string})
 
 
 def search(request):
@@ -183,13 +182,21 @@ def post_blog(request):
         messages.warning(request,"Please Login")
         return redirect("/")
     if user:
-        if request.is_ajax and request.method=="POST":
+        if request.method=="POST":
             title = request.POST.get("title")
             img_url = request.POST.get("img_url")
             contant = request.POST.get("contant")
+            print('request--',request.POST.get("public"))
+            if request.POST.get("public") =='on':
+                public = True
+            else:
+                print('request--',request.POST.get("public"))
+                public = False
             user = request.user
-            post = Blogpost(user=user,title=title,IMG_url=img_url,contant=contant)
+            post = Blogpost(user=user,title=title,IMG_url=img_url,contant=contant,public=public)
+            print('post--',post)
             post.save()
+            print('post--',post)
             messages.success(request,"Post Created Successfully")
             return redirect("blogpost",post.post_id)
         return render(request,"blog/post_blog.html")
@@ -232,16 +239,18 @@ def delete_post(request,id):
             return redirect("/")
 
 def edit_post(request,id):
+    print("request---",request.method,request.session['user'])
     try:
         user = request.session['user']
-        print("user==",user)
+        # print("user==",user)
     except:
         messages.warning(request,"Please Login")
         return redirect("/")
-    if user and request.method=="GET":
+    if request.method=="GET":
         try:
             post = Blogpost.objects.get(post_id=id)
             if request.user==post.user:
+                print(post.title)
                 return render(request,"blog/edit_post.html",{"post":post})
             else:
                 messages.error(request,"You are not Authenticated for this action")
@@ -249,24 +258,28 @@ def edit_post(request,id):
         except:
             messages.error(request,"Post not available")
             return redirect("/")
-    if user and request.method=="POST":
+    elif request.method=="POST":
         title = request.POST.get("title")
         img = request.POST.get("img_url")
         contant = request.POST.get("contant")
-        try:
-            post = Blogpost.objects.get(post_id=id)
-            if request.user==post.user:
-                post.title = title
-                post.IMG_url = img
-                post.contant = contant
-                post.save()
-                messages.success(request,"Post Edited Successfully")
-                return redirect("blogpost",post.post_id)
-            else:
-                messages.error(request,"You are not Authenticated for this action")
-            return redirect("/")
-        except:
-            messages.error(request,"Post not available")
-            return redirect("/")
-
+        print('public--',request.POST.get("public"))
+        if request.POST.get("public") =='on':
+            public = True
+        else:
+            public = False
+        
+        post = Blogpost.objects.get(post_id=id)
+        if request.user==post.user:
+            post.title = title
+            post.IMG_url = img
+            post.contant = contant
+            post.public = public
+            post.save()
+            print(post.title)
+            messages.success(request,"Post Edited Successfully")
+            return redirect("blogpost",post.post_id)
+        else:
+            messages.error(request,"You are not Authenticated for this action")
+        return redirect("/")
+        
 

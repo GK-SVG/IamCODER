@@ -14,9 +14,11 @@ height: 80vh;
 
 <div class="container mt-5">
 <div id="myaleart"></div>
-<form  id="blog-form" method="POST" action="{% url 'EditPost' post.post_id %}">
+<form  id="blog-form"  action="{% url 'EditPost' post.post_id %}" method="POST">
     {% csrf_token %}
     <div class="form-group">
+        <label>Public</label>
+        <input type="checkbox"  placeholder="" name="public" {% if post.public %}checked{% endif %} ><br> 
         <label>Title</label>
         <input type="title" class="form-control" placeholder="Title" name="title" value="{{post.title}}" required>
     </div>

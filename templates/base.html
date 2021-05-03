@@ -89,14 +89,7 @@
       
   </nav>
 
-  {% for message in messages %}
-  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-    <strong>Message: </strong> {{ message}}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  {% endfor %}
+  
   <!--Sign UP Modal -->
   <div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -193,8 +186,26 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
     integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous">
   </script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
   {% block js %} {% endblock %}
+  
+  {% for message in messages %}
+  console.log('tags--','{{ message.tags }}')
+  if('{{ message.tags }}'=='danger'){
+           var type="error"
+           var icon="error"
+          }
+  else{
+    var type="{{ message.tags }}"
+    var icon="{{ message.tags }}"
+  }
+  swal({
+          text: '{{ message}}',
+          type: type,
+          icon: icon
+        });
+  {% endfor %}
   </script>
 </body>
 </html>
