@@ -18,7 +18,7 @@ from django.core import serializers
 blogCount = Blogpost.objects.all().count()
 
 def home(request):
-    global_blog_count = 3
+    global_blog_count = 10
     print('count--',blogCount)
     blogs = Blogpost.objects.all()[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
@@ -169,7 +169,7 @@ def postComment(request):
 
 
 def trending(request):
-    blogs = Blogpost.objects.order_by('-pub_date','view')[:10]
+    blogs = Blogpost.objects.order_by('view','-pub_date')[:10]
     params = {'blogs': blogs}
     return render(request,'blog/trending.html',params)
 

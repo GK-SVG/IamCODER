@@ -67,23 +67,19 @@ font-size:10px;
 {%load static %}
 {% load humanize %}
 <div class="container my-5">
-    <div class="row d-flex justify-content-center">
+    <div class="row">
         <div class="col-md-12 col-12 col-sm-12">
-            <h3 class="font-italic mt-4"><b> {{post.title}}</b></h3>
-            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p><hr>
-            {% include "blog/share.html" %}
+            <h3 class="font-italic"><b> {{post.title}}</b></h3>
+            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p>
+            {% include "blog/share.html" %}<hr>
         </div>
-        <div class="row d-flex justify-content-center mt-0">
-            <div class="col-md-12 col-12 col-sm-12 blog-main">
-                <img src="{{post.IMG_url}}" class="image2 bd-placeholder-img my-4 img-responsive"><hr>
-                <div class="blog-post pm">
-                    <p class="">{{post.contant|safe}}</p><hr>
-                </div>
-            </div>
+        <div class="col-md-12 col-12 col-sm-12" style="overflow-x:hidden;">
+            <img src="{{post.IMG_url}}" class="image2 bd-placeholder-img my-5 img-responsive"><hr>
+            {{post.contant|safe}}<hr>
         </div>
     </div>
-    
-    <div class="container mt-5">
+
+    <div class="mt-5">
         <h3><b>Comments({{comment.count}})</b></h3>
         {% if user.is_authenticated %}
         <form action="/postComment/" method="post">
@@ -139,7 +135,7 @@ font-size:10px;
             {%endif%}
             {% for reply in replyDict|get_val:com.comment_id%}
             <div class="col-md-12 mx-4 col-sm-12 col-12">
-                <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
+                <img src="{% static "blog/user.png"%}" class="img-circle p-1 cimage" style="float: left;">
                 <p class="mt-3 ml-0 des"> <b>{{reply.user.username}} </b> {{reply.time|naturaltime}}</p>
             </div>
             <div class="col-md-12 mx-5 col-sm-12 col-12">
