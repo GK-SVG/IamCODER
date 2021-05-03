@@ -11,14 +11,15 @@
         </div>
         {% for blog in blogs reversed %}
         <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
-            <div class="card" style="width: 22rem;">
-                <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
-                <div class="card-body">
-                    <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
-                    {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
-                    <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
+            <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration: none;">
+                <div class="card" style="width: 22rem; min-height: 20rem;">
+                    <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                    <div class="card-body" style="color: black;">
+                        <h5 class="card-title">{{blog.title|truncatechars:60}}</h5>
+                        {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         {% endfor %}
     </div>
@@ -31,7 +32,7 @@
 <script>
     var current_post_count = Number("{{ global_blog_count }}")
     var blogCount = Number("{{blogCount}}")
-    
+
     function load_blogs() {
         let url = `/loadMore/${current_post_count}`
         fetch(url, {
@@ -48,8 +49,8 @@
                     btn.onclick = ""
                     btn.innerText = "No Posts to load"
                 }
-                
-                
+
+
                 add_Blogs(response)
             }).catch((err) => {
                 console.log('error--', err)
@@ -72,8 +73,8 @@
                         </div>
                     </div>`
         });
-        
-        document.querySelector("#all_blogs").insertAdjacentHTML('beforeend',html)
+
+        document.querySelector("#all_blogs").insertAdjacentHTML('beforeend', html)
         // all_blogs.append(html)
     }
 
