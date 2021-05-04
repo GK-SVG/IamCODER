@@ -1,8 +1,10 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Blogpost,BlogCommet
+from .models import *
 admin.site.register(BlogCommet)
+admin.site.register(SavedBlogs)
+
 
 @admin.register(Blogpost)
 class BlogpostAdmin(admin.ModelAdmin):

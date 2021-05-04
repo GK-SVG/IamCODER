@@ -10,7 +10,6 @@
             <h3><b>Latest Tech News</b></h3>
         </div>
         {% for blog in blogs reversed %}
-        {% if blog.user == request.user or blog.public %}
         <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
             <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration: none;">
                 <div class="card" style="width: 21rem; min-height: 22rem;">
@@ -22,7 +21,6 @@
                 </div>
             </a>
         </div>
-        {% endif %}
         {% endfor %}
     </div>
 

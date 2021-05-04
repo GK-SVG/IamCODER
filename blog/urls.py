@@ -30,6 +30,7 @@ urlpatterns = [
     path("myPosts/",views.user_posts,name="UserPosts"),
     path("deletePost/<int:id>",views.delete_post,name="DeletePost"),
     path("editPost/<int:id>",views.edit_post,name="EditPost"),
-    path("loadMore/<int:global_blog_count>",views.load_more_blogs,name="LoadMore")
+    path("loadMore/<int:global_blog_count>",views.load_more_blogs,name="LoadMore"),
+    path("saveBlog/<int:id>",views.Save_Blog,name="SaveBlog"),
 ]
 

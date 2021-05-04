@@ -28,4 +28,6 @@ class BlogCommet(models.Model):
         return self.comment[0:10] + "... by " + self.user.username 
 
 
-    
+class SavedBlogs(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    blogs = models.ForeignKey(Blogpost,on_delete=models.CASCADE)

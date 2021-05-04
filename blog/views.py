@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from rest_framework.response import Response
 from rest_framework import status
 from django.contrib import messages
-from.models import Blogpost, BlogCommet
+from.models import *
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 import django.templatetags
@@ -20,18 +20,20 @@ blogCount = Blogpost.objects.all().count()
 def home(request):
     global_blog_count = 10
     print('count--',blogCount)
-    blogs = Blogpost.objects.filter()[:global_blog_count]
+    blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
     return render(request,'blog/home.html',params)
 
 
 def load_more_blogs(request,global_blog_count):
     increase_blog_count = 3
-    blogs = Blogpost.objects.filter()[global_blog_count:(global_blog_count+increase_blog_count)]
-    # print('blogs --',blogs)
-    data = list({'blogs':blogs})
+    blogs = Blogpost.objects.filter(public=True)[global_blog_count:(global_blog_count+increase_blog_count)]
+    print('blogs type --',type(blogs))
+    print('blogs --',(blogs))
+
+    # data = list({'blogs':blogs})
     data = serializers.serialize("json", blogs)
-    # print('serializers blogs --',data)
+    print('serializers blogs --',data)
 
     return HttpResponse(data,content_type="application/json")
 
@@ -46,17 +48,21 @@ def blogpost(request,id):
     except:
         messages.error(request,"Sommething Went wrong")
         return redirect("/")
-    post.view= post.view+1
-    post.save()
-    comment = BlogCommet.objects.filter(post=post,parent=None)
-    replies = BlogCommet.objects.filter(post=post).exclude(parent=None) 
-    replyDict = {}
-    for reply in replies:
-        if reply.parent.comment_id not in replyDict.keys():
-            replyDict[reply.parent.comment_id]=[reply]
-        else:
-            replyDict[reply.parent.comment_id].append(reply)
-    return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string})
+    if request.user == post.user or post.public == True:
+        post.view= post.view+1
+        post.save()
+        comment = BlogCommet.objects.filter(post=post,parent=None)
+        replies = BlogCommet.objects.filter(post=post).exclude(parent=None) 
+        replyDict = {}
+        for reply in replies:
+            if reply.parent.comment_id not in replyDict.keys():
+                replyDict[reply.parent.comment_id]=[reply]
+            else:
+                replyDict[reply.parent.comment_id].append(reply)
+        return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string})
+    else:
+        messages.error(request,"Blog is private")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def search(request):
@@ -215,7 +221,8 @@ def user_posts(request):
         user = request.user
         posts = Blogpost.objects.filter(user=user)
         return render(request,"blog/user_posts.html",{"blogs":posts})
-    return HttpResponse("Something Went Wrong")
+    messages.error("Something went wrong")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def delete_post(request,id):
@@ -283,3 +290,24 @@ def edit_post(request,id):
         return redirect("/")
         
 
+def Save_Blog(request,id):
+    try:
+        user = request.session['user']
+    except:
+        data = serializers.serialize("json", {'message':"Please Login","status":'400','type':"warning"})
+        return JsonResponse(data,safe=False)
+    try:
+        blog = Blogpost.objects.get(post_id=id)
+        print('blog--',blog)
+    except:
+        data = [{'message':"Something went wrong","status":'404','type':"error"}]
+        return JsonResponse(data,safe=False)
+    try:
+        savedBlog = SavedBlogs.objects.get(user=request.user,blogs=blog)
+        data = [{'message':"Blog Already Saved","status":'200','type':"warning"}]
+        return JsonResponse(data,safe=False)
+    except:
+        saveBlog = SavedBlogs(user=request.user,blogs=blog)
+        saveBlog.save()
+        data = [{'message':"Blog Saved","status":'200','type':"success"}]
+        return JsonResponse(data,safe=False)
