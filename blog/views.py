@@ -311,3 +311,12 @@ def Save_Blog(request,id):
         saveBlog.save()
         data = [{'message':"Blog Saved","status":'200','type':"success"}]
         return JsonResponse(data,safe=False)
+
+
+def UserSavedBlogs(request):
+    try:
+        user = request.session['user']
+    except:
+        messages.error(request,"Please Login")
+    AllSavedBlogs = SavedBlogs.objects.filter(user=request.user)
+    return render(request,"blog/UserSavedBlogs.html",{'blogs':AllSavedBlogs})

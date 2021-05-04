@@ -32,5 +32,7 @@ urlpatterns = [
     path("editPost/<int:id>",views.edit_post,name="EditPost"),
     path("loadMore/<int:global_blog_count>",views.load_more_blogs,name="LoadMore"),
     path("saveBlog/<int:id>",views.Save_Blog,name="SaveBlog"),
+    path("mySavedBlogs/",views.UserSavedBlogs,name="UserSavedBlogs"),
+
 ]
 

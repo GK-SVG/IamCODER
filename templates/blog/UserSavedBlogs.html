@@ -6,16 +6,16 @@ IamCODER
 <div class="container" style="margin-top:6em;">
     <div class="row">
         <div class="col-md-12">
-            <h3><b>My Blogs</b></h3>
+            <h3><b>Saved Blogs</b></h3>
         </div>
         {% for blog in blogs reversed %}
         <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
-            <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration: none;">
+            <a href="{% url 'blogpost' blog.blogs.post_id %}" style="text-decoration: none;">
                 <div class="card" style="width: 21rem; min-height: 20rem;">
-                    <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                    <img src="{{blog.blogs.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                     <div class="card-body" style="color: black;">
-                        <h5 class="card-title">{{blog.title|truncatechars:60}}</h5>
-                        {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
+                        <h5 class="card-title">{{blog.blogs.title|truncatechars:60}}</h5>
+                        {{blog.blogs.pub_date}} <b>{{blog.blogs.user.username}}</b>({{blog.blogs.view}} views)
                     </div>
                 </div>
             </a>
