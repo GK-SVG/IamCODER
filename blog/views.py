@@ -18,23 +18,24 @@ from django.core import serializers
 blogCount = Blogpost.objects.all().count()
 
 def home(request):
-    global_blog_count = 10
-    print('count--',blogCount)
+    global_blog_count = 2
     blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
     return render(request,'blog/home.html',params)
 
 
 def load_more_blogs(request,global_blog_count):
-    increase_blog_count = 3
+    increase_blog_count = 2
+    print('blogCount--',blogCount)
+    print("global_blog_count--",global_blog_count)
+    if blogCount <= global_blog_count:
+        blogs = Blogpost.objects.filter(public=True)[increase_blog_count:blogCount]
+        print('if block blogs --',(blogs))
+        data = serializers.serialize("json", blogs)
+        return HttpResponse(data,content_type="application/json")
     blogs = Blogpost.objects.filter(public=True)[global_blog_count:(global_blog_count+increase_blog_count)]
-    print('blogs type --',type(blogs))
     print('blogs --',(blogs))
-
-    # data = list({'blogs':blogs})
     data = serializers.serialize("json", blogs)
-    print('serializers blogs --',data)
-
     return HttpResponse(data,content_type="application/json")
 
 

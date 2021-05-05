@@ -24,11 +24,11 @@ IamCODER
         <div class="row">
             {% for blog in blogs reversed %}
             <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
-                <div class="card" style="width: 22rem;">
+                <div class="card"  style="width: 20rem; min-height: 22rem;">
                     <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                     <div class="card-body">
-                        <h5 class="card-title">{{blog.title|truncatechars:30}}</h5>
-                        <b>{{blog.writter}}</b>{{blog.pub_date}}({{blog.view}} views)
+                        <h5 class="card-title">{{blog.title|truncatechars:50}}</h5>
+                        <b>{{blog.user.username}}</b>{{blog.pub_date}}({{blog.view}} views)
                         <a href="{% url 'blogpost' blog.post_id %}" class="btn btn-primary">Read</a>
                     </div>
                 </div>

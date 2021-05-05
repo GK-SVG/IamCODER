@@ -15,7 +15,7 @@
                 <div class="card" style="width: 21rem; min-height: 22rem;">
                     <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                     <div class="card-body" style="color: black;">
-                        <h5 class="card-title">{{blog.title|truncatechars:60}}...</h5>
+                        <h5 class="card-title">{{blog.title|truncatechars:50}}</h5>
                         {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
                     </div>
                 </div>
@@ -30,10 +30,18 @@
 </div>
 
 <script>
-    var current_post_count = Number("{{ global_blog_count }}")
     var blogCount = Number("{{blogCount}}")
 
     function load_blogs() {
+        if(!localStorage.getItem("current_post_count")){
+            localStorage.setItem("current_post_count","{{ global_blog_count }}")
+            var current_post_count = Number("{{ global_blog_count }}")
+            console.log("IF block current_post_count--",current_post_count)
+        }
+        else{
+          current_post_count = Number(localStorage.getItem("current_post_count"))
+          console.log("else Block current_post_count--",current_post_count)
+        }
         let url = `/loadMore/${current_post_count}`
         fetch(url, {
                 method: "GET",
@@ -43,33 +51,38 @@
             })
             .then((response) => {
                 console.log('responce--', response)
-                current_post_count += Number("{{ global_blog_count }}")
+                var temp = Number("{{ global_blog_count }}")
+                current_post_count += temp
+                console.log('current_post_count--',current_post_count)
+                localStorage.removeItem("current_post_count")
+                localStorage.setItem("current_post_count",current_post_count)
                 if (current_post_count >= blogCount) {
                     var btn = document.getElementById("loadBtn")
                     btn.onclick = ""
                     btn.innerText = "No Posts to load"
+                    console.log('current_post_count--',blogCount)
+                    localStorage.removeItem("current_post_count")
+                    localStorage.setItem("current_post_count",blogCount)
                 }
-
-
                 add_Blogs(response)
             }).catch((err) => {
                 console.log('error--', err)
             });
 
     }
-
+    load_blogs()
     function add_Blogs(data) {
         var html = ""
         data.forEach(blog => {
 
             html += `<div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
                         <a href="/blogpost/${blog.pk}" style="text-decoration: none;">
-                            <div class="card" style="width: 22rem; min-height: 20rem;">
+                            <div class="card" style="width: 21rem; min-height: 22rem;">
                                 <img src="${blog.fields.IMG_url}" class="card-img-top" style="height:12rem;" alt="Img not found">
                                 <div class="card-body" style="color: black;">
-                                    <h5 class="card-title">${blog.fields.title.slice(0,60)}</h5>
+                                    <h5 class="card-title">${blog.fields.title.slice(0,50)}</h5>
                                     ${getDate(blog.fields.pub_date)} <b>${getUserName(blog.fields.user)}(${blog.fields.view} views)</b>
-                                    
+                        
                                 </div>
                             </div>
                         </a>
@@ -96,5 +109,7 @@
     function getUserName(user) {
         return "{{user.username}}"
     }
+
+    
 </script>
 {% endblock body %}
