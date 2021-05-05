@@ -33,6 +33,8 @@ urlpatterns = [
     path("loadMore/<int:global_blog_count>",views.load_more_blogs,name="LoadMore"),
     path("saveBlog/<int:id>",views.Save_Blog,name="SaveBlog"),
     path("mySavedBlogs/",views.UserSavedBlogs,name="UserSavedBlogs"),
-    path("followUser/<int:id>",views.Follow_User,name="Follow_User")
+    path("followUser/<int:id>",views.Follow_User,name="Follow_User"),
+    path("unfollowUser/<int:id>",views.UnFollow_User,name="UnFollow_User"),
+
 ]
 

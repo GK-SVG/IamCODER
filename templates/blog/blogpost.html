@@ -174,7 +174,32 @@ function follow_user(userId){
                         var btn = document.getElementById("f_btn")
                         btn.innerText = "UnFollow"
                         btn.className = "btn btn-dark"
-                        btn.onclick = `unfollow_user(${userId})`
+                        btn.setAttribute("onclick",`unfollow_user(${userId})`) 
+                    })
+            }).catch((err) => {
+                console.log('error--', err)
+            });
+}
+
+function unfollow_user(userId){
+    let url = `/unfollowUser/${userId}`
+        fetch(url, {
+                method: "GET",
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log('responce--', response)
+                swal({
+                    text: response[0].message,
+                    type: response[0].type,
+                    icon: response[0].type
+                    }).then(()=>{
+                        var btn = document.getElementById("f_btn")
+                        btn.innerText = "Follow"
+                        btn.className = "btn btn-primary"
+                        btn.setAttribute("onclick",`follow_user(${userId})`) 
                     })
             }).catch((err) => {
                 console.log('error--', err)

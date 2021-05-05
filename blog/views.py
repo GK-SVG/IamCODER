@@ -349,3 +349,24 @@ def Follow_User(request,id):
         follow.save()
         data = [{'message':f"Following {f_user.username}","status":'200','type':"success"}]
         return JsonResponse(data,safe=False)
+
+
+def UnFollow_User(request,id):
+    try:
+        user = request.session['user']
+    except:
+        data = [{'message':"Please Login","status":'400','type':"warning"}]
+        return JsonResponse(data,safe=False)
+    try:
+        f_user = User.objects.get(id=id)
+    except:
+        data = [{'message':"Something Wrong","status":'400','type':"error"}]
+        return JsonResponse(data,safe=False)
+    try:
+        follow = FollowUser.objects.get(user=request.user,following=f_user)
+    except:
+        data = [{'message':"Something Went wronf","status":'404','type':"error"}]
+        return JsonResponse(data,safe=False)
+    follow.delete()
+    data = [{'message':f"You Unfollowed {f_user.username}","status":'200','type':"warning"}]
+    return JsonResponse(data,safe=False)
