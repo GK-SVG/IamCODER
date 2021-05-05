@@ -13,6 +13,7 @@ from urllib.parse import quote_plus
 from rest_framework.decorators import api_view
 from django.http import JsonResponse
 from django.core import serializers
+import json
 # Create your views here.
 
 blogCount = Blogpost.objects.all().count()
@@ -26,18 +27,18 @@ def home(request):
 
 def load_more_blogs(request,global_blog_count):
     increase_blog_count = 2
-    print('blogCount--',blogCount)
-    print("global_blog_count--",global_blog_count)
+    data = []
     if blogCount <= global_blog_count:
         blogs = Blogpost.objects.filter(public=True)[increase_blog_count:blogCount]
-        print('if block blogs --',(blogs))
-        data = serializers.serialize("json", blogs)
-        return HttpResponse(data,content_type="application/json")
+        for blog in blogs:
+            temp = {'img':f'{blog.IMG_url}','post_id':f'{blog.post_id}','user':f'{blog.user.username}','title':f'{blog.title}','pub_date':f'{blog.pub_date}','views':f'{blog.view}'}
+            data.append(temp)
+        return JsonResponse(data,safe=False)
     blogs = Blogpost.objects.filter(public=True)[global_blog_count:(global_blog_count+increase_blog_count)]
-    print('blogs --',(blogs))
-    data = serializers.serialize("json", blogs)
-    return HttpResponse(data,content_type="application/json")
-
+    for blog in blogs:
+        temp = {'img':f'{blog.IMG_url}','post_id':f'{blog.post_id}','user':f'{blog.user.username}','title':f'{blog.title}','pub_date':f'{blog.pub_date}','views':f'{blog.view}'}
+        data.append(temp)
+    return JsonResponse(data,safe=False)
 
 def about(request):
     return render(request,'blog/about.html')
@@ -60,7 +61,12 @@ def blogpost(request,id):
                 replyDict[reply.parent.comment_id]=[reply]
             else:
                 replyDict[reply.parent.comment_id].append(reply)
-        return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string})
+        try:
+            f_user = FollowUser.objects.get(user=request.user,following=post.user)
+            following = True
+        except:
+            following = False
+        return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string,"following":following})
     else:
         messages.error(request,"Blog is private")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
@@ -122,7 +128,7 @@ def signup(request):
             myuser.last_name= lname
             myuser.save()
             login(request,myuser)
-            request.session['user'] == myuser
+            request.session['user'] = myuser.username
             messages.success(request,'Your account created succesfully')
             return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
         
@@ -295,7 +301,7 @@ def Save_Blog(request,id):
     try:
         user = request.session['user']
     except:
-        data = serializers.serialize("json", {'message':"Please Login","status":'400','type':"warning"})
+        data = [{'message':"Please Login","status":'400','type':"warning"}]
         return JsonResponse(data,safe=False)
     try:
         blog = Blogpost.objects.get(post_id=id)
@@ -321,3 +327,25 @@ def UserSavedBlogs(request):
         messages.error(request,"Please Login")
     AllSavedBlogs = SavedBlogs.objects.filter(user=request.user)
     return render(request,"blog/UserSavedBlogs.html",{'blogs':AllSavedBlogs})
+
+
+def Follow_User(request,id):
+    try:
+        user = request.session['user']
+    except:
+        data = [{'message':"Please Login","status":'400','type':"warning"}]
+        return JsonResponse(data,safe=False)
+    try:
+        f_user = User.objects.get(id=id)
+    except:
+        data = [{'message':"Something Wrong","status":'400','type':"error"}]
+        return JsonResponse(data,safe=False)
+    try:
+        FollowUser.objects.get(user=request.user,following=f_user)
+        data = [{'message':f"You already Following {f_user.username}","status":'200','type':"warning"}]
+        return JsonResponse(data,safe=False)
+    except:
+        follow = FollowUser(user=request.user,following=f_user)
+        follow.save()
+        data = [{'message':f"Following {f_user.username}","status":'200','type':"success"}]
+        return JsonResponse(data,safe=False)

@@ -16,7 +16,7 @@
                     <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                     <div class="card-body" style="color: black;">
                         <h5 class="card-title">{{blog.title|truncatechars:50}}</h5>
-                        {{blog.pub_date}} <b>{{blog.user.username}}</b>({{blog.view}} views)
+                        {{blog.pub_date}} <b>{{blog.user}}</b>({{blog.view}} views)
                     </div>
                 </div>
             </a>
@@ -76,12 +76,12 @@
         data.forEach(blog => {
 
             html += `<div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
-                        <a href="/blogpost/${blog.pk}" style="text-decoration: none;">
+                        <a href="/blogpost/${blog.post_id}" style="text-decoration: none;">
                             <div class="card" style="width: 21rem; min-height: 22rem;">
-                                <img src="${blog.fields.IMG_url}" class="card-img-top" style="height:12rem;" alt="Img not found">
+                                <img src="${blog.img}" class="card-img-top" style="height:12rem;" alt="Img not found">
                                 <div class="card-body" style="color: black;">
-                                    <h5 class="card-title">${blog.fields.title.slice(0,50)}</h5>
-                                    ${getDate(blog.fields.pub_date)} <b>${getUserName(blog.fields.user)}(${blog.fields.view} views)</b>
+                                    <h5 class="card-title">${blog.title.slice(0,50)}</h5>
+                                    ${getDate(blog.pub_date)} <b>${blog.user}(${blog.views} views)</b>
                         
                                 </div>
                             </div>
@@ -106,10 +106,5 @@
         return completeDate;
     }
 
-    function getUserName(user) {
-        return "{{user.username}}"
-    }
-
-    
 </script>
 {% endblock body %}

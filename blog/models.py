@@ -5,13 +5,14 @@ from django.utils.timezone import now
 # Create your models here.
 class Blogpost(models.Model):
     post_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,verbose_name='username')
     title = models.CharField(max_length=100)
     contant = models.TextField(max_length=5000)
     pub_date = models.DateTimeField(auto_now_add=True)
     view = models.IntegerField(default=0)
     IMG_url = models.CharField(max_length=250,default='')
     public = models.BooleanField(default=True)
+    
     def __str__(self):
         return self.title 
 
@@ -31,3 +32,10 @@ class BlogCommet(models.Model):
 class SavedBlogs(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     blogs = models.ForeignKey(Blogpost,on_delete=models.CASCADE)
+
+
+class FollowUser(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    following = models.ForeignKey(User,on_delete=models.CASCADE,related_name="fUser")
+
+

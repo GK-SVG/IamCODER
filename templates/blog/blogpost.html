@@ -155,5 +155,30 @@ function SaveBlog(post_id){
                 console.log('error--', err)
             });
 }
+
+function follow_user(userId){
+    let url = `/followUser/${userId}`
+        fetch(url, {
+                method: "GET",
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log('responce--', response)
+                swal({
+                    text: response[0].message,
+                    type: response[0].type,
+                    icon: response[0].type
+                    }).then(()=>{
+                        var btn = document.getElementById("f_btn")
+                        btn.innerText = "UnFollow"
+                        btn.className = "btn btn-dark"
+                        btn.onclick = `unfollow_user(${userId})`
+                    })
+            }).catch((err) => {
+                console.log('error--', err)
+            });
+}
 </script>
 {% endblock body %}
