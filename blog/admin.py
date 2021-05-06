@@ -4,6 +4,10 @@ from django.contrib import admin
 from .models import *
 admin.site.register(BlogCommet)
 admin.site.register(SavedBlogs)
+admin.site.register(FollowUser)
+admin.site.register(UserDetails)
+
+
 
 
 @admin.register(Blogpost)

@@ -33,9 +33,25 @@ class SavedBlogs(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     blogs = models.ForeignKey(Blogpost,on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.user.username
+    
 
 class FollowUser(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     following = models.ForeignKey(User,on_delete=models.CASCADE,related_name="fUser")
 
+    def __str__(self):
+        return self.user.username
+    
 
+class UserDetails(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    work_at = models.CharField(max_length=150,default="Team Computers Pvt. Ltd.")
+    location = models.CharField(max_length=50,default="India, New Dehli")
+    education = models.CharField(max_length=100,default="B.Tech in Computer Science and Engineering")
+    descripation = models.CharField(max_length=150,default="Namaste 🙏🏼 I am Software Engineer at Team Computers")
+
+    def __str__(self):
+        return self.user.username
+    

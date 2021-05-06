@@ -11,6 +11,9 @@ width:50px;
 height;50px;
 cursor:pointer;
 }
+ul {
+    list-style-type: none;
+}
 .a:hover{
 background-color: #ddd;
 color: black;
@@ -54,25 +57,59 @@ font-size:10px;
 {% block body %}
 {%load static %}
 {% load humanize %}
-<div class="container my-5">
+<div class="container-fluid" style="margin-top:6em;">
     <div class="row">
-        <div class="col-md-12 col-12 col-sm-12">
+        <div class="col-md-8 col-12 col-sm-12" style="overflow-x:hidden;">
             <h3 class="font-italic"><b> {{post.title}}</b></h3>
             <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p>
             {% include "blog/share.html" %}<hr>
-        </div>
-        <div class="col-md-12 col-12 col-sm-12" style="overflow-x:hidden;">
             <img src="{{post.IMG_url}}" class="my-4"><hr>
             {{post.contant|safe}}<hr>
+        </div>   
+        <div class="col-md-3 col-12 col-sm-12 mt-2 ml-5 ">
+            <div class="card position-fixed" style="width:20rem; height:27rem;">
+                <div class="card-header">
+                    <b>Writter  <a href="#" class="mr-3">{{post.user.username}}</a></b>
+                    {% if request.user != post.user and request.user.is_authenticated %}
+                    {% if following %}
+                    <button id="f_btn" class="btn btn-dark" onclick="unfollow_user({{post.user.id}})">UnFollow</button>  
+                    {% else %}
+                    <button id="f_btn" class="btn btn-primary" onclick="follow_user({{post.user.id}})">Follow</button>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <div class="border-bottom">
+                        <strong>Namaste 🙏🏼 I am Software Engineer at Bank of America, hooked on Python 🐍 I like to read OSFY, Fiction and Manga 😺 </strong>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <b>Work</b><br>
+                            <span>Software Engineer I at Bank of America</span>
+                        </div>
+                        <div class="col-12">
+                            <b>Location</b><br>
+                            <span>Chennai</span>
+                        </div>
+                        <div class="col-12">
+                            <b>Education</b><br>
+                            <span>B.Tech in Computer Science and Engineering</span>
+                        </div>
+                        <div class="col-12">
+                            <b>Joined</b><br>
+                            <span>12 Nov, 2019</span>
+                        </div>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-
     <div class="mt-5">
         <h3><b>Comments({{comment.count}})</b></h3>
         {% if user.is_authenticated %}
         <form action="/postComment/" method="post">
             {% csrf_token %}
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <input type="text" class="form-control" name="comment" placeholder="Enter your comment">
                 <input type="hidden" class="form-control" name="post_id" value="{{post.post_id}}">
             </div>
@@ -84,7 +121,7 @@ font-size:10px;
         {% endif %}
         {% for com in comment reversed%}
         <div class="row my-3 border m-0">
-            <div class="col-md-12 col-sm-12 col-12 ">
+            <div class="col-md-8 col-sm-12 col-12 ">
                 {%load static%}
 
                 <img src="{% static "blog/user.png"%}" class="img-circle  p-1 cimage" style="float: left;">
@@ -92,7 +129,7 @@ font-size:10px;
 
             </div>
 
-            <div class="col-md-12 mx-3 col-sm-12 col-12"> {{com.comment}}</div>
+            <div class="col-md-8 mx-3 col-sm-12 col-12"> {{com.comment}}</div>
             {% if user.is_authenticated %}
             <div class="col-md-1 col-1 col-sm-1"></div>
             <div class="col-md-11 col-11 col-sm-11 mb-3">

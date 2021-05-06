@@ -20,8 +20,9 @@ blogCount = Blogpost.objects.all().count()
 
 def home(request):
     global_blog_count = 2
+    t_blogs = Blogpost.objects.order_by('pub_date','view')[:5]
     blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
-    params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count}
+    params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count,"t_blogs":t_blogs}
     return render(request,'blog/home.html',params)
 
 
@@ -370,3 +371,26 @@ def UnFollow_User(request,id):
     follow.delete()
     data = [{'message':f"You Unfollowed {f_user.username}","status":'200','type':"warning"}]
     return JsonResponse(data,safe=False)
+
+
+def user_profile(request,username):
+    r_user = request.user
+    try:
+        user = User.objects.get(username=username)
+    except:
+        messages.error(request,"User Does Not Exist")
+        return redirect("/")
+    print("r_user",r_user," user--",user)
+    if r_user == user:
+        blogs = Blogpost.objects.filter(user=r_user)
+        followers = FollowUser.objects.filter(following=r_user)
+        following = FollowUser.objects.filter(user=r_user)
+        followers_count = FollowUser.objects.filter(following=r_user).count()
+        following_count = FollowUser.objects.filter(user=r_user).count()
+        print("followers_count--",followers_count)
+        savedBlogs_count = SavedBlogs.objects.filter(user=r_user).count()
+        data = {'user':user,'blogs':blogs,'followers':followers,'following':following,'followers_count':followers_count,'following_count':following_count,'savedBlogs_count':savedBlogs_count}
+        return render(request,'blog/user_profile.html',data)
+    else:
+        return redirect("/")
+

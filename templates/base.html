@@ -38,7 +38,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: black;">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: black;">
     <a href="/"><img src="{% static "blog/coder.png"%}" style="width:3.5rem;height:1.5rem;"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">￼
@@ -53,6 +53,7 @@
         <li class="nav-item {% block trendactive %}{% endblock trendactive%}">
           <a class="nav-link" href="/trending/">Trending<span class="sr-only">(current)</span></a>
         </li>
+        
         <li class="nav-item {% block aboutactive %}{% endblock aboutactive%}">
           <a class="nav-link" href="/about/">About Us</a>
         </li>
@@ -64,13 +65,16 @@
       </form>
       {% if user.is_authenticated %}
       <ul class="navbar-nav ml-2">
+        <li class="nav-item ">
+          <a class="btn btn-primary mx-1" href="{% url 'Post_Blog' %}">Write a Post</a>
+        </li>
         <li class="nav-item dropdown">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Welcome {{request.user}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item" href="{% url 'Post_Blog' %}">CreateBlog</a>
+            <a class="dropdown-item" href="{% url 'UserProfile' request.user.username %}">MyProfile</a>
             <a class="dropdown-item" href="{% url 'UserPosts' %}">MyPosts</a>
             <a class="dropdown-item" href="{% url 'UserSavedBlogs' %}">SavedBlog</a>
             <a class="dropdown-item" href="/logout/">Logout</a>
@@ -165,7 +169,9 @@
       </div>
     </div>
   </div>
+  <div class="container-fluid mt-7" style="min-height:79vh">
   {% block body %} {% endblock %}
+  </div>
   <!-- Footer -->
 <footer class="page-footer bg-dark mt-5">
 

@@ -3,11 +3,11 @@
 <a href="{% url 'EditPost' post.post_id %}" class="btn btn-warning">Edit</a>
 {% endif %}
 {% if request.user != post.user and request.user.is_authenticated %}
-<a href="#" class="btn btn-success" onclick="SaveBlog({{post.post_id}})">Save</a>
+<button class="btn btn-success" onclick="SaveBlog({{post.post_id}})">Save</button>
 {% if following %}
-<a href="#" id="f_btn" class="btn btn-dark" onclick="unfollow_user({{post.user.id}})">UnFollow</a>
+<button id="f_btn" class="btn btn-dark" onclick="unfollow_user({{post.user.id}})">UnFollow</button>
 {% else %}
-<a href="#" id="f_btn" class="btn btn-primary" onclick="follow_user({{post.user.id}})">Follow</a>
+<button id="f_btn" class="btn btn-primary" onclick="follow_user({{post.user.id}})">Follow</button>
 {% endif %}
 {% endif %}
 <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">Share</button>
