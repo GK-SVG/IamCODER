@@ -80,24 +80,34 @@ font-size:10px;
                 </div>
                 <div class="card-body">
                     <div class="border-bottom">
-                        <strong>Namaste 🙏🏼 I am Software Engineer at Bank of America, hooked on Python 🐍 I like to read OSFY, Fiction and Manga 😺 </strong>
+                        {% if post_user_details.descripation %}
+                        <strong>{{post_user_details.descripation}}</strong>
+                        {% else %}
+                        <strong>Description not Available</strong>
+                        {% endif %}
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
-                            <b>Work</b><br>
-                            <span>Software Engineer I at Bank of America</span>
+                            {% if post_user_details.work_at %}
+                            <b>Work at</b><br>
+                            <span>{{post_user_details.work_at}}</span>
+                            {% endif %}
                         </div>
                         <div class="col-12">
+                            {% if post_user_details.location %}
                             <b>Location</b><br>
-                            <span>Chennai</span>
+                            <span>{{post_user_details.location}}</span>
+                            {% endif %}
                         </div>
                         <div class="col-12">
+                            {% if post_user_details.education %}
                             <b>Education</b><br>
-                            <span>B.Tech in Computer Science and Engineering</span>
+                            <span>{{post_user_details.education}}</span>
+                            {% endif %}
                         </div>
                         <div class="col-12">
                             <b>Joined</b><br>
-                            <span>12 Nov, 2019</span>
+                            <span>{{request.user.date_joined}}</span>
                         </div>
                     </ul>
                 </div>

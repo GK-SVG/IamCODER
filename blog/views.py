@@ -51,6 +51,10 @@ def blogpost(request,id):
     except:
         messages.error(request,"Sommething Went wrong")
         return redirect("/")
+    try:
+        post_user_details = UserDetails.objects.get(user=post.user)
+    except:
+        post_user_details = []
     if request.user == post.user or post.public == True:
         post.view= post.view+1
         post.save()
@@ -67,7 +71,7 @@ def blogpost(request,id):
             following = True
         except:
             following = False
-        return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string,"following":following})
+        return render(request, 'blog/blogpost.html',{'post':post,'comment':comment, 'user':request.user , 'replyDict':replyDict,"share_string":share_string,"following":following,'post_user_details':post_user_details})
     else:
         messages.error(request,"Blog is private")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
@@ -182,7 +186,7 @@ def postComment(request):
 
 
 def trending(request):
-    blogs = Blogpost.objects.order_by('view','-pub_date')[:10]
+    blogs = Blogpost.objects.order_by('pub_date','view')[:15]
     params = {'blogs': blogs}
     return render(request,'blog/trending.html',params)
 

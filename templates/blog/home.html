@@ -21,6 +21,9 @@
     width: 18rem; 
 
     }
+    .t_hide{
+        display:none;
+    }
 }
 {% endblock css %}
 {% block body %}
@@ -32,8 +35,8 @@
         </div>
         <div class="col-lg-9 col-md-9 col-sm-12 col-12 row" id="all_blogs">
         {% for blog in blogs reversed %}
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3">
-            <a href="{% url 'blogpost' blog.post_id %}">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3" >
+            <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration:none;">
                 <div class="card card-width">
                     <img src="{{blog.IMG_url}}" class="card-img-top" style="height:12rem;" alt="Img not found">
                     <div class="card-body" style="color: black;">
@@ -45,21 +48,21 @@
         </div>
         {% endfor %}
         </div>
-        <div class="col-lg-3 col-md-3 col-sm-12 col-12 mt-3">
-            <h5>Trending Blogs</h5>
-            <div class="col-12 row" >
-                        {% for blog in t_blogs reversed %}
-                        <div class="col-12 mt-2">
-                            <a href="{% url 'blogpost' blog.post_id %}">
-                                <div class="card t_card">
-                                    <div class="card-body">
-                                        <img src="{{blog.IMG_url}}" class="card-img-top" style="height:8rem;">
-                                        ##{{ forloop.counter }}<b style="color: black;">{{blog.title|truncatechars:60}}</b>
-                                    </div>
-                                </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-12 mt-3 t_hide">
+            <div class="col-12 row card" >
+                <div class="card-header">
+                    <b>Trending Blogs <a class="ml-5"href="/trending/">See all</a></b>
+                </div>
+                <div class="card-body">
+                    {% for blog in t_blogs reversed %}
+                        <div class="col-12 mt-4 border-bottom" >
+                            <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration:none;">      
+                                <img src="{{blog.IMG_url}}" class="card-img-top" style="height:8rem;">
+                                ##{{ forloop.counter }}<b style="color: black;">{{blog.title|truncatechars:60}}</b>
                             </a>
                         </div>
-                        {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
