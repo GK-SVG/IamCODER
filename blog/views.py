@@ -132,6 +132,8 @@ def signup(request):
             myuser.first_name= fname
             myuser.last_name= lname
             myuser.save()
+            user_details = UserDetails(user=myuser)
+            user_details.save()
             login(request,myuser)
             request.session['user'] = myuser.username
             messages.success(request,'Your account created succesfully')
@@ -378,23 +380,27 @@ def UnFollow_User(request,id):
 
 
 def user_profile(request,username):
-    r_user = request.user
     try:
         user = User.objects.get(username=username)
     except:
         messages.error(request,"User Does Not Exist")
         return redirect("/")
-    print("r_user",r_user," user--",user)
-    if r_user == user:
-        blogs = Blogpost.objects.filter(user=r_user)
-        followers = FollowUser.objects.filter(following=r_user)
-        following = FollowUser.objects.filter(user=r_user)
-        followers_count = FollowUser.objects.filter(following=r_user).count()
-        following_count = FollowUser.objects.filter(user=r_user).count()
-        print("followers_count--",followers_count)
-        savedBlogs_count = SavedBlogs.objects.filter(user=r_user).count()
-        data = {'user':user,'blogs':blogs,'followers':followers,'following':following,'followers_count':followers_count,'following_count':following_count,'savedBlogs_count':savedBlogs_count}
-        return render(request,'blog/user_profile.html',data)
-    else:
-        return redirect("/")
+    try:
+        f_user = FollowUser.objects.get(user=request.user,following=user)
+        user_following = True
+    except:
+        user_following = False
+    
+    user_details = UserDetails.objects.get(user=user)
+    blogs = Blogpost.objects.filter(user=user)
+    blogs_count = Blogpost.objects.filter(user=user).count()
+    followers = FollowUser.objects.filter(following=user)
+    following = FollowUser.objects.filter(user=user)
+    followers_count = FollowUser.objects.filter(following=user).count()
+    following_count = FollowUser.objects.filter(user=user).count()
+    print("followers_count--",followers_count)
+    savedBlogs_count = SavedBlogs.objects.filter(user=user).count()
+    data = {'user':user,'user_details':user_details,'blogs':blogs,'followers':followers,'following':following,'followers_count':followers_count,'following_count':following_count,'savedBlogs_count':savedBlogs_count,'user_following':user_following,'blogs_count':blogs_count}
+    return render(request,'blog/user_profile.html',data)
+    
 

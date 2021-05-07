@@ -10,7 +10,8 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css
+    " />
   <title>iCODER</title>
   <style>
     .search {
@@ -62,7 +63,7 @@
           id="query">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
-      {% if user.is_authenticated %}
+      {% if request.user.is_authenticated %}
       <ul class="navbar-nav ml-2">
         <li class="nav-item ">
           <a class="btn btn-primary mx-1" href="{% url 'Post_Blog' %}">Write a Post</a>
@@ -70,7 +71,7 @@
         <li class="nav-item dropdown">
           <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Welcome {{request.user}}
+            Welcome {{request.user.username}}
           </a>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
             <a class="dropdown-item" href="{% url 'UserProfile' request.user.username %}">MyProfile</a>

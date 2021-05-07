@@ -2,8 +2,135 @@
 {% block title %}
 IamCODER
 {% endblock title %}
+{%load static %}
+{% block css %}
+.cimage{
+width:3rem;
+height:3rem;
+}
+{% endblock css %}
 {% block body %}
-<div class="container" style="margin-top:6em;">
-{{user.username}}
+
+<div class="container" style="margin-top:6em; ">
+    <div class="card p-1">
+        <div class="row">
+            <div class="col-12 mt-2 d-flex justify-content-end">
+                {% if request.user == user %}
+                <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editProfile">Edit
+                    Profile</button>
+                {% else %}
+                <button class="btn btn-primary mr-2">Follow</button>
+                {% endif %}
+            </div>
+            <div class="col-xl-12 col-md-12 col-12 d-flex justify-content-center mt-2">
+                <h3>{{user.username}}</h3>
+            </div>
+            <div class="col-xl-12 col-md-12 col-12 d-flex justify-content-center mt-2">
+                <p>{{user_details.descripation}}</p>
+            </div>
+
+            <div class="col-xl-6 col-md-6 col-12  d-flex justify-content-center mt-2 text-dark">
+                <i class="mb-1 fas fa-map-marker-alt fa-2x"></i><span class="ml-2">{{user_details.location}}</span>
+            </div>
+            <div class="col-xl-6 col-md-6 col-12 d-flex justify-content-center mt-2 text-dark">
+                <i class="mb-1 fas fa-birthday-cake fa-2x"></i><span class="ml-2"><b>Joined on</b>
+                    {{user_details.user.date_joined|date:"M d, Y" }}</span>
+                <a href="{{user_details.github_url}}" target="_blank"><i
+                        class="text-dark fab fa-github fa-2x ml-2"></i></a>
+            </div>
+
+            <div class="col-xl-6 col-md-6 col-12 d-flex justify-content-center mt-2 text-dark">
+                <b>Education</b>
+                <p class="ml-2">{{user_details.education}}</p>
+            </div>
+            <div class="col-xl-6 col-md-6 col-12 d-flex justify-content-center mt-2 text-dark">
+                <b>Work at</b>
+                <p class="ml-2">{{user_details.work_at}}</p>
+            </div>
+        </div>
+        <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfile"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editProfile">Edit Profile</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="/signup/" method="post">
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control"  name="location"
+                                  value="{{user_details.location}}"  placeholder="username only AlphaNumeric" Required>
+                            </div>
+                            <div class="form-group">
+                                <label for="education">Education</label>
+                                <input type="text" class="form-control" value="{{user_details.education}}" name="education" placeholder="First Name"
+                                    Required>
+                            </div>
+                            <div class="form-group">
+                                <label for="github">Github Link</label>
+                                <input type="url" class="form-control"  name="github" value="{{user_details.github_url}}"placeholder="Last Name"
+                                    Required>
+                            </div>
+                            <div class="form-group">
+                                <label for="work_at">Work At</label>
+                                <input type="text" class="form-control" id="email" name="work_at" value="{{user_details.work_at}}"
+                                     Required>
+                            </div>
+                            <div class="form-group">
+                                <label for="work_at">Bio</label>
+                                <textarea class="form-control" name="bio" id="" cols="50" rows="3">{{user_details.descripation}}</textarea>
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-xl-3 col-md-3 col-12 mt-4">
+            <div class="card">
+                <div class="col-12">
+                    <a href="" style="text-decoration:none;" class="text-dark">
+                        <p class="mt-2"><b class="mr-3">#Followers</b>{{followers_count}}</p>
+                    </a>
+                    <a href="" style="text-decoration:none;" class="text-dark">
+                        <p class="mt-2"><b class="mr-3">#Foollowing</b>{{following_count}}</p>
+                    </a>
+                    {% if request.user != user %}
+                    <a style="text-decoration:none;" class="text-dark">
+                        <p class="mt-2"><b class="mr-3">#Posts</b>{{blogs_count}}</p>
+                    </a>
+                    {% endif %}
+                    {% if request.user == user %}
+                    <a href="{% url 'UserPosts' %}" style="text-decoration:none;" class="text-dark">
+                        <p class="mt-2"><b class="mr-3">#Posts</b>{{blogs_count}}</p>
+                    </a>
+                    <a href="{% url 'UserSavedBlogs' %}" style="text-decoration:none;" class="text-dark">
+                        <p class="mt-2"><b class="mr-3">#Saved</b>{{savedBlogs_count}}</p>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-9 col-md-9 col-12 row">
+            {% for blog in blogs %}
+            <div class="col-xl-12 col-md-12 col-12 mt-4">
+                <div class="card p-1">
+                    <div class="card-body" style="color: black;">
+                        <h5 class="card-title">{{blog.title}}</h5>
+                        <span>{{blog.pub_date}} ({{blog.view}} views)</span>
+                        {% include "blog/share.html" %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 {% endblock body %}

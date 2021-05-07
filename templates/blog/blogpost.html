@@ -61,7 +61,7 @@ font-size:10px;
     <div class="row">
         <div class="col-md-8 col-12 col-sm-12" style="overflow-x:hidden;">
             <h3 class="font-italic"><b> {{post.title}}</b></h3>
-            <p class="blog-post-meta">{{post.pub_date}} by <b>{{post.user.username}}({{post.view}} views)</b></p>
+            <p class="blog-post-meta">{{post.pub_date}} by<a href="{% url 'UserProfile' post.user.username %}"> <b>{{post.user.username}} </a>({{post.view}} views)</b></p>
             {% include "blog/share.html" %}<hr>
             <img src="{{post.IMG_url}}" class="my-4"><hr>
             {{post.contant|safe}}<hr>
@@ -69,7 +69,7 @@ font-size:10px;
         <div class="col-md-3 col-12 col-sm-12 mt-2 ml-5 ">
             <div class="card position-fixed" style="width:20rem; height:27rem;">
                 <div class="card-header">
-                    <b>Writter  <a href="#" class="mr-3">{{post.user.username}}</a></b>
+                    <b>Writter  <a href="{% url 'UserProfile' post.user.username %}" class="mr-3">{{post.user.username}}</a></b>
                     {% if request.user != post.user and request.user.is_authenticated %}
                     {% if following %}
                     <button id="f_btn" class="btn btn-dark" onclick="unfollow_user({{post.user.id}})">UnFollow</button>  

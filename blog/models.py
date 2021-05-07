@@ -51,7 +51,7 @@ class UserDetails(models.Model):
     location = models.CharField(max_length=50,default="India, New Dehli")
     education = models.CharField(max_length=100,default="B.Tech in Computer Science and Engineering")
     descripation = models.CharField(max_length=150,default="Namaste 🙏🏼 I am Software Engineer at Team Computers")
-
+    github_url  = models.URLField(default="https://github.com/")
     def __str__(self):
         return self.user.username
     
