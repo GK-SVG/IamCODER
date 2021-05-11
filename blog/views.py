@@ -19,7 +19,7 @@ import json
 blogCount = Blogpost.objects.all().count()
 
 def home(request):
-    global_blog_count = 2
+    global_blog_count = 10
     t_blogs = Blogpost.objects.order_by('pub_date','view')[:5]
     blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count,"t_blogs":t_blogs}
@@ -27,7 +27,7 @@ def home(request):
 
 
 def load_more_blogs(request,global_blog_count):
-    increase_blog_count = 2
+    increase_blog_count = 10
     data = []
     if blogCount <= global_blog_count:
         blogs = Blogpost.objects.filter(public=True)[increase_blog_count:blogCount]
@@ -227,7 +227,6 @@ def post_blog(request):
 def user_posts(request):
     try:
         user = request.session['user']
-        print("user==",user)
     except:
         messages.warning(request,"Please Login")
         return redirect("/")

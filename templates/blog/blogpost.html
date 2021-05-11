@@ -60,7 +60,7 @@ font-size:10px;
 <div class="container-fluid" style="margin-top:6em;">
     <div class="row">
         <div class="col-md-8 col-12 col-sm-12" style="overflow-x:hidden;">
-            <h3 class="font-italic"><b> {{post.title}}</b></h3>
+            <h3 class="font-italic text-dark"><b> {{post.title}}</b></h3>
             <p class="blog-post-meta">{{post.pub_date}} by<a href="{% url 'UserProfile' post.user.username %}"> <b>{{post.user.username}} </a>({{post.view}} views)</b></p>
             {% include "blog/share.html" %}<hr>
             <img src="{{post.IMG_url}}" class="my-4"><hr>

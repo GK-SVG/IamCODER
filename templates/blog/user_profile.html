@@ -125,7 +125,9 @@ height:3rem;
                     <div class="card-body" style="color: black;">
                         <h5 class="card-title">{{blog.title}}</h5>
                         <span>{{blog.pub_date}} ({{blog.view}} views)</span>
-                        {% include "blog/share.html" %}
+                        <div class="col-xl-12 col-md-12 col-12">
+                            {% include "blog/share.html" %}
+                        </div>
                     </div>
                 </div>
             </div>
