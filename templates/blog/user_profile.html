@@ -119,12 +119,12 @@ height:3rem;
             </div>
         </div>
         <div class="col-xl-9 col-md-9 col-12 row">
-            {% for blog in blogs %}
+            {% for post in blogs %}
             <div class="col-xl-12 col-md-12 col-12 mt-4">
                 <div class="card p-1">
                     <div class="card-body" style="color: black;">
-                        <h5 class="card-title">{{blog.title}}</h5>
-                        <span>{{blog.pub_date}} ({{blog.view}} views)</span>
+                        <h5 class="card-title">{{post.title}}</h5>
+                        <span>{{post.pub_date}} ({{post.view}} views)</span>
                         <div class="col-xl-12 col-md-12 col-12">
                             {% include "blog/share.html" %}
                         </div>
