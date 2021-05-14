@@ -19,7 +19,7 @@ import json
 blogCount = Blogpost.objects.all().count()
 
 def home(request):
-    global_blog_count = 2
+    global_blog_count = 5
     t_blogs = Blogpost.objects.order_by('pub_date','view')[:5]
     blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
     params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count,"t_blogs":t_blogs}
@@ -27,7 +27,7 @@ def home(request):
 
 
 def load_more_blogs(request,global_blog_count):
-    increase_blog_count = 1
+    increase_blog_count = 5
     data = []
     if blogCount <= global_blog_count:
         blogs = Blogpost.objects.filter(public=True)[global_blog_count:blogCount]
