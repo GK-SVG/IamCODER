@@ -96,9 +96,7 @@
                     var btn = document.getElementById("loadBtn")
                     btn.onclick = ""
                     btn.innerText = "No Posts to load"
-                    console.log('current_post_count--',blogCount)
-                    localStorage.removeItem("current_post_count")
-                    localStorage.setItem("current_post_count",blogCount)
+                    
                 }
                 add_Blogs(response)
             }).catch((err) => {
