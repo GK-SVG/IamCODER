@@ -74,17 +74,10 @@
 
 <script>
     var blogCount = Number("{{blogCount}}")
+    var current_post_count = Number("{{ global_blog_count }}")
 
     function load_blogs() {
-        if(!localStorage.getItem("current_post_count")){
-            localStorage.setItem("current_post_count","{{ global_blog_count }}")
-            var current_post_count = Number("{{ global_blog_count }}")
-            console.log("IF block current_post_count--",current_post_count)
-        }
-        else{
-          current_post_count = Number(localStorage.getItem("current_post_count"))
-          console.log("else Block current_post_count--",current_post_count)
-        }
+        
         let url = `/loadMore/${current_post_count}`
         fetch(url, {
                 method: "GET",
