@@ -311,16 +311,14 @@ def Save_Blog(request,id):
         return JsonResponse(data,safe=False)
     try:
         blog = Blogpost.objects.get(post_id=id)
-        print('blog--',blog)
     except:
         data = [{'message':"Something went wrong","status":'404','type':"error"}]
         return JsonResponse(data,safe=False)
-    try:
-        savedBlog = SavedBlogs.objects.get(user=request.user)
-        if savedBlog.blogs==blog:
-            data = [{'message':"Blog Already Saved","status":'200','type':"warning"}]
-            return JsonResponse(data,safe=False)
-    except:
+    savedBlog = SavedBlogs.objects.filter(user=request.user,blogs=blog).count()
+    if savedBlog >=1:
+        data = [{'message':"Blog Already Saved","status":'200','type':"warning"}]
+        return JsonResponse(data,safe=False)
+    else:
         saveBlog = SavedBlogs(user=request.user,blogs=blog)
         saveBlog.save()
         data = [{'message':"Blog Saved","status":'200','type':"success"}]

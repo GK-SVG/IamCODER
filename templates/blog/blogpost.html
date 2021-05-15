@@ -192,14 +192,17 @@ function SaveBlog(post_id){
                 return response.json();
             })
             .then((response) => {
-                console.log('responce--', response)
                 swal({
                     text: response[0].message,
                     type: response[0].type,
                     icon: response[0].type
                     });
             }).catch((err) => {
-                console.log('error--', err)
+                swal({
+                    text: "Something went wrong",
+                    type: "error",
+                    icon: "error"
+                    });
             });
 }
 
@@ -212,7 +215,6 @@ function follow_user(userId){
                 return response.json();
             })
             .then((response) => {
-                console.log('responce--', response)
                 swal({
                     text: response[0].message,
                     type: response[0].type,
@@ -224,7 +226,11 @@ function follow_user(userId){
                         btn.setAttribute("onclick",`unfollow_user(${userId})`) 
                     })
             }).catch((err) => {
-                console.log('error--', err)
+                swal({
+                    text: "Something went wrong",
+                    type: "error",
+                    icon: "error"
+                    });
             });
 }
 
@@ -237,7 +243,6 @@ function unfollow_user(userId){
                 return response.json();
             })
             .then((response) => {
-                console.log('responce--', response)
                 swal({
                     text: response[0].message,
                     type: response[0].type,
@@ -249,7 +254,11 @@ function unfollow_user(userId){
                         btn.setAttribute("onclick",`follow_user(${userId})`) 
                     })
             }).catch((err) => {
-                console.log('error--', err)
+                swal({
+                    text: "Something went wrong",
+                    type: "error",
+                    icon: "error"
+                    });
             });
 }
 </script>

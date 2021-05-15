@@ -30,7 +30,7 @@ class BlogCommet(models.Model):
 
 
 class SavedBlogs(models.Model):
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="saved_blog")
     blogs = models.ForeignKey(Blogpost,on_delete=models.CASCADE)
 
     def __str__(self):
