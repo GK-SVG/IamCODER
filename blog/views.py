@@ -16,26 +16,26 @@ from django.core import serializers
 import json
 # Create your views here.
 
-blogCount = Blogpost.objects.all().count()
+# blogCount = Blogpost.objects.all().count()
 
 def home(request):
-    global_blog_count = 5
+    # global_blog_count = 2
     t_blogs = Blogpost.objects.order_by('pub_date','view')[:5]
-    blogs = Blogpost.objects.filter(public=True)[:global_blog_count]
-    params = {'blogs': blogs,'blogCount':blogCount,'global_blog_count':global_blog_count,"t_blogs":t_blogs}
+    blogs = Blogpost.objects.filter(public=True)
+    params = {'blogs': blogs,"t_blogs":t_blogs}
     return render(request,'blog/home.html',params)
 
 
 def load_more_blogs(request,global_blog_count):
-    increase_blog_count = 5
+    increase_blog_count = 2
     data = []
     if blogCount <= global_blog_count:
-        blogs = Blogpost.objects.filter(public=True)[global_blog_count:blogCount]
+        blogs = Blogpost.objects.filter(public=True)[0:-(global_blog_count)]
         for blog in blogs:
             temp = {'img':f'{blog.IMG_url}','post_id':f'{blog.post_id}','user':f'{blog.user.username}','title':f'{blog.title}','pub_date':f'{blog.pub_date}','views':f'{blog.view}'}
             data.append(temp)
         return JsonResponse(data,safe=False)
-    blogs = Blogpost.objects.filter(public=True)[global_blog_count:(global_blog_count+increase_blog_count)]
+    blogs = Blogpost.objects.filter(public=True)[-(global_blog_count+increase_blog_count):-(global_blog_count)]
     for blog in blogs:
         temp = {'img':f'{blog.IMG_url}','post_id':f'{blog.post_id}','user':f'{blog.user.username}','title':f'{blog.title}','pub_date':f'{blog.pub_date}','views':f'{blog.view}'}
         data.append(temp)

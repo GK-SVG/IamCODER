@@ -34,7 +34,7 @@
             <h3><b style="color: black;">Latest Tech Blogs</b></h3>
         </div>
         <div class="col-lg-9 col-md-9 col-sm-12 col-12 row" id="all_blogs">
-        {% for blog in blogs %}
+        {% for blog in blogs reversed %}
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 mt-3" >
             <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration:none;">
                 <div class="card card-width">
@@ -54,7 +54,7 @@
                     <b>Trending Blogs <a class="ml-5"href="/trending/">See all</a></b>
                 </div>
                 <div class="card-body">
-                    {% for blog in t_blogs reversed %}
+                    {% for blog in t_blogs %}
                         <div class="col-12 mt-4 border-bottom" >
                             <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration:none;">      
                                 <img src="{{blog.IMG_url}}" class="card-img-top" style="height:8rem;">
@@ -67,12 +67,12 @@
         </div>
     </div>
 
-    <div id="loadBtn" class="mt-4 btn btn-info col-md-9 col-sm-12 col-12" onclick="load_blogs()">
+    {% comment %} <div id="loadBtn" class="mt-4 btn btn-info col-md-9 col-sm-12 col-12" onclick="load_blogs()">
         Load More
-    </div>
+    </div> {% endcomment %}
 </div>
 
-<script>
+{% comment %} <script>
     var blogCount = Number("{{blogCount}}")
     var current_post_count = Number("{{ global_blog_count }}")
 
@@ -138,7 +138,7 @@
         });
         let completeDate = `${monthList[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()} ,${time} `;
         return completeDate;
-    }
+    } {% endcomment %}
 
 </script>
 {% endblock body %}
