@@ -396,7 +396,8 @@ def user_profile(request,username):
     following = FollowUser.objects.filter(user=user)
     followers_count = FollowUser.objects.filter(following=user).count()
     following_count = FollowUser.objects.filter(user=user).count()
-    print("followers_count--",followers_count)
+    # print("following--",following)
+    # print("followers--",followers)
     savedBlogs_count = SavedBlogs.objects.filter(user=user).count()
     data = {'user':user,'user_details':user_details,'blogs':blogs,'followers':followers,'following':following,'followers_count':followers_count,'following_count':following_count,'savedBlogs_count':savedBlogs_count,'user_following':user_following,'blogs_count':blogs_count}
     return render(request,'blog/user_profile.html',data)
