@@ -20,10 +20,12 @@ height:3rem;
                 <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editProfile">Edit
                     Profile</button>
                 {% else %}
+                {% if request.user.is_authenticated %}
                 {% if following %}
                 <button id="follow_btn" class="btn mx-1 btn-dark" onclick="unfollow_user({{user.id}})">UnFollow</button>
                 {% else %}
                 <button id="follow_btn" class="btn mx-1 btn-primary" onclick="follow_user({{user.id}})">Follow</button>
+                {% endif %}
                 {% endif %}
                 {% endif %}
             </div>
