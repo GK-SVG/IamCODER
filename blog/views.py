@@ -188,7 +188,7 @@ def postComment(request):
 
 
 def trending(request):
-    blogs = Blogpost.objects.order_by('pub_date','view')[:15]
+    blogs = Blogpost.objects.order_by('pub_date','view')[:20]
     params = {'blogs': blogs}
     return render(request,'blog/trending.html',params)
 

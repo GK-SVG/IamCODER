@@ -24,7 +24,7 @@ IamCODER
         <div class="col-md-12">
             <h3><b>Tranding Tech News</b></h3>
         </div>
-        {% for blog in blogs reversed %}
+        {% for blog in blogs %}
         <div class="col-lg-4 col-md-6 col-sm-6 col-12 mt-3">
             <a href="{% url 'blogpost' blog.post_id %}" style="text-decoration: none;">
                 <div class="card card-width">
