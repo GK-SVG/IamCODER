@@ -20,7 +20,7 @@ import json
 
 def home(request):
     # global_blog_count = 2
-    t_blogs = Blogpost.objects.order_by('pub_date','view')[:5]
+    t_blogs = Blogpost.objects.order_by('pub_date','view')[:10]
     blogs = Blogpost.objects.filter(public=True)
     params = {'blogs': blogs,"t_blogs":t_blogs}
     return render(request,'blog/home.html',params)
