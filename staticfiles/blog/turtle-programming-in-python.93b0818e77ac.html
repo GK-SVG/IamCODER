@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<title>Turtle programming in Python</title>
+<meta charset="utf-8">
+<meta name="description" content="Turtle is a special feathers of Python. Using Turtle, we can easily draw in a drawing board.
+First we import the turtle module. Then create a window, next we cr ..."/>
+<meta name="keywords" content="C, C++, Python, Java, HTML, CSS, JavaScript, SQL, PHP, jQuery, XML, DOM, Bootstrap, Tutorials, Articles, Programming, training, learning, quiz, preferences, examples, code"/>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=yes">
+<link rel="stylesheet" href="/themes/css/style-min-v1.css?v=2.0.94">
+<script src="/themes/js/script-min-v1.js?v=2.0.0"></script>
+<script>function printPage() { window.print(); }</script>
+
+<script type="text/javascript" src="//services.bilsyndication.com/adv1/?q=0a8a90220201327770f6c986bea026a3" defer="" async=""></script>
+<script>
+var vitag = vitag || {};
+vitag.outStreamConfig = { enablePC:false, enableMobile:false};
+vitag.smartBannerConfig = { enablePC: false, enableMobile: true, disableHorizontalPosition: "right left middle", disableVerticalPosition: "top middle" };
+</script>
+
+<script data-cfasync="false" type="text/javascript">(function(w, d) { var s = d.createElement('script'); s.src = '//delivery.adrecover.com/18107/adRecover.js'; s.type = 'text/javascript'; s.async = true; (d.getElementsByTagName('head')[0] || d.getElementsByTagName('body')[0]).appendChild(s); })(window, document);</script>
+<link rel="stylesheet" href="/themes/css/style-qa.css">
+<style>
+.right-menu .mui-btn {
+    background-color:#b82051;
+}
+a.demo {
+    background:#b82051;
+}
+li.heading {
+    background:#b82051;
+}
+.course-box{background:#b82051}
+.home-intro-sub p{color:#b82051}
+</style>
+</head>
+<body>
+<header id="header">
+<!-- Top sub-menu Starts Here -->
+<div class="mui-appbar mui-container-fulid top-menu">
+<div class="mui-container">
+<div class="top-menu-item home">
+<a href="https://www.tutorialspoint.com/index.htm" target="_blank" title="TutorialsPoint - Home"><i class="fal fa-home"></i> <span>Home</span></a>
+</div>
+<div class="top-menu-item qa">
+<a href="https://www.tutorialspoint.com/about/about_careers.htm" target="_blank" title="Job @ Tutorials Point"><i class="fa fa-suitcase"></i> <span>Jobs</span></a>
+</div>
+<div class="top-menu-item tools">
+<a href="https://www.tutorialspoint.com/online_dev_tools.htm" target="_blank" title="Tools - Online Development and Testing Tools"><i class="fal fa-cogs"></i> <span>Tools</span></a>
+</div>
+<div class="top-menu-item coding-ground">
+<a href="https://www.tutorialspoint.com/codingground.htm" target="_blank" title="Coding Ground - Free Online IDE and Terminal"><i class="fal fa-code"></i> <span>Coding Ground </span></a> 
+</div>
+<div class="top-menu-item current-affairs">
+<a href="https://www.tutorialspoint.com/current_affairs.htm" target="_blank" title="Daily Current Affairs"><i class="fal fa-layer-plus"></i> <span>Current Affairs</span></a>
+</div>
+<div class="top-menu-item upsc-notes">
+<a href="https://www.tutorialspoint.com/upsc_ias_exams.htm" target="_blank" title="UPSC IAS Exams Notes - TutorialsPoint"><i class="fal fa-user-tie"></i> <span>UPSC Notes</span></a>
+</div>      
+<div class="top-menu-item online-tutoris">
+<a href="https://www.tutorialspoint.com/tutor_connect/index.php" target="_blank" title="Top Online Tutors - Tutor Connect"><i class="fal fa-user"></i> <span>Online Tutors</span></a>
+</div>
+<div class="top-menu-item whiteboard">
+<a href="https://www.tutorialspoint.com/whiteboard.htm" target="_blank" title="Free Online Whiteboard"><i class="fal fa-chalkboard"></i> <span>Whiteboard</span></a>
+</div>
+<div class="top-menu-item net-meeting">
+<a href="https://www.tutorialspoint.com/netmeeting.php" target="_blank" title="A free tool for online video conferencing"><i class="fal fa-chalkboard-teacher"></i> <span>Net Meeting</span></a> 
+</div>
+<div class="top-menu-item articles">
+<a href="https://www.tutorix.com" target="_blank" title="Tutorx - The Best Learning App" rel="nofollow"><i class="fal fa-video"></i> <span>Tutorix</span></a> 
+</div>        
+<div class="social-menu-item">
+<a href="https://www.facebook.com/tutorialspointindia" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Facebook"><i class="fab fa-facebook-f"></i></a> 
+<a href="https://www.twitter.com/tutorialspoint" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Twitter"><i class="fab fa-twitter"></i></a>
+<a href="https://www.linkedin.com/company/tutorialspoint" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint @ Linkedin"><i class="fab fa-linkedin-in"></i></a>
+<a href="https://www.youtube.com/channel/UCVLbzhxVTiTLiVKeGV7WEBg" target="_blank" rel="nofollow" data-placement="bottom" title="tutorialspoint YouTube"><i class="fab fa-youtube"></i></a>
+</div>        
+</div>
+</div>
+<!-- Top sub-menu Ends Here -->
+<!-- Top main-menu Starts Here -->
+<div class="mui-appbar mui-container-fulid mui--appbar-line-height mui--z1" id="logo-menu">
+<div class="mui-container">
+<div class="left-menu">
+<a href="https://www.tutorialspoint.com/index.htm" title="Tutorialspoint">
+<img class="tp-logo" alt="tutorialspoint" src="/3d_figures_and_volumes/images/logo.png">
+</a>
+<div class="mui-dropdown">
+<a class="mui-btn mui-btn--primary categories" data-mui-toggle="dropdown"><i class="fa fa-th-large"></i> 
+<span>Categories <span class="mui-caret"></span></span></a>            
+<ul class="mui-dropdown__menu cat-menu">
+<li>
+<ul>
+<li><a href="/questions/category/java8"><i class="fa fa-caret-right"></i> Java</a></li>
+<li><a href="/questions/category/jsp"><i class="fa fa-caret-right"></i> JSP</a></li>
+<li><a href="/questions/category/ios"><i class="fa fa-caret-right"></i> iOS</a></li>
+<li><a href="/questions/category/html"><i class="fa fa-caret-right"></i> HTML</a></li>
+<li><a href="/questions/category/android"><i class="fa fa-caret-right"></i> Android</a></li>
+<li><a href="/questions/category/python"><i class="fa fa-caret-right"></i> Python</a></li>
+<li><a href="/questions/category/c"><i class="fa fa-caret-right"></i> C Programming</a></li>
+<li><a href="/questions/category/cplusplus"><i class="fa fa-caret-right"></i> C++ Programming</a></li>
+<li><a href="/questions/category/csharp"><i class="fa fa-caret-right"></i> C#</a></li>
+<li><a href="/questions/category/php"><i class="fa fa-caret-right"></i> PHP</a></li>
+<li><a href="/questions/category/css"><i class="fa fa-caret-right"></i> CSS</a></li>
+<li><a href="/questions/category/javascript"><i class="fa fa-caret-right"></i> Javascript</a></li>
+<li><a href="/questions/category/jquery"><i class="fa fa-caret-right"></i> jQuery</a></li>
+<li><a href="/questions/category/sap"><i class="fa fa-caret-right"></i> SAP</a></li>
+<li><a href="/questions/category/sap-hana"><i class="fa fa-caret-right"></i> SAP HANA</a></li>
+<li><a href="/questions/category/data-structure"><i class="fa fa-caret-right"></i> Data Structure</a></li>
+<li><a href="/questions/category/rdbms"><i class="fa fa-caret-right"></i> RDBMS</a></li>
+<li><a href="/questions/category/mysql"><i class="fa fa-caret-right"></i> MySQL</a></li>
+<li><a href="/questions/category/mathematics"><i class="fa fa-caret-right"></i> Mathematics</a></li>
+<li><a href="/questions/category/8085"><i class="fa fa-caret-right"></i> 8085 Microprocessor</a></li>
+<li><a href="/questions/category/operating-system"><i class="fa fa-caret-right"></i> Operating System</a></li>
+<li><a href="/questions/category/digital-electronics"><i class="fa fa-caret-right"></i> Digital Electronics</a></li>
+<li><a href="/questions/category/analysis-of-algorithms"><i class="fa fa-caret-right"></i> Analysis of Algorithms</a></li>
+<li><a href="/questions/category/mobile-development"><i class="fa fa-caret-right"></i> Mobile Development</a></li>
+<li><a href="/questions/category/front-end-technology"><i class="fa fa-caret-right"></i> Front End </a></li>
+<li><a href="/questions/category/web-development"><i class="fa fa-caret-right"></i> Web Development</a></li>
+<li><a href="/questions/category/selenium"><i class="fa fa-caret-right"></i> Selenium</a></li>
+<li><a href="/questions/category/mongodb"><i class="fa fa-caret-right"></i> MongoDB</a></li>
+<li><a href="/questions/category/computer-network"><i class="fa fa-caret-right"></i> Computer Network</a></li>
+<li><a href="/questions/category/general-topics"><i class="fa fa-caret-right"></i> General Topics</a></li>
+</ul>
+</li>
+</ul>
+<div class="clear"></div>
+</div> 
+</div>
+<div class="right-menu">
+<div class="toc-toggle">
+<a href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+</div>
+<div class="mobile-search-btn">
+<a href="https://www.tutorialspoint.com/index.htm"><i class="fal fa-search"></i></a>
+</div>
+<div class="search-box">
+<script async src="https://cse.google.com/cse.js?cx=000263362972888060243:yfed6eu421q"></script>
+<div class='gcse-search'></div>
+</div>
+<div class="menu-btn library-btn">
+<a href="https://www.tutorialspoint.com/tutorialslibrary.htm"><i class="fal fa-cubes"></i> <span>Library</span></a>
+</div>
+<div class="menu-btn videos-btn">
+<a href="https://www.tutorialspoint.com/videotutorials/index.php"><i class="fal fa-video"></i> <span>Videos</span></a> 
+</div>
+<div class="menu-btn videos-btn">
+<a href="https://www.tutorialspoint.com/questions/index.php"><i class="fa fa-location-arrow"></i> <span>Q/A</span></a>
+</div>
+<div class="menu-btn ebooks-btn">
+<a href="https://store.tutorialspoint.com"><i class="fal fa-book"></i> <span>eBooks</span></a>
+</div>
+<div class="mui-dropdown">
+<button class="mui-btn mui-btn--primary mobile-menu" data-mui-toggle="dropdown">
+<span class="mui-caret"></span>
+</button>
+<ul class="mui-dropdown__menu">
+<li><a href="https://www.tutorialspoint.com/tutorialslibrary.htm"><i class="fal fa-cubes"></i> <span>Library</span></a></li>
+<li><a href="https://www.tutorialspoint.com/videotutorials/index.php"><i class="fal fa-video"></i> <span>Videos</span></a></li>
+<li><a href="https://store.tutorialspoint.com"><i class="fal fa-book"></i> <span>eBooks</span></a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<!-- Top main-menu Ends Here -->
+</header>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+tex2jax: { inlineMath: [["$","$"],["\\(","\\)"]] },
+"HTML-CSS": {
+  linebreaks: { automatic: true, width: "container" }          
+}              
+});
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"> </script>
+<script src="https://www.tutorialspoint.com/theme/js/questions/run_prettify.js"></script>
+<link rel="stylesheet" href="https://cdn.rawgit.com/google/code-prettify/master/loader/prettify.css">
+<style>img.fr-dib, img.fr-fic{width:auto!important; width:-webkit-fill-available; max-width:100%;}
+.tutorial-content .math{border:0px solid #d6d6d6!important; margin-bottom:0px!important; padding:0px!important; background:transparent!important;}
+pre.prettyprint{border:1px solid #ccc!important; background-color:#f1f1f1; border-radius:0; padding:5px!important; margin:0; margin-bottom:10px; margin-top:15px; font-size:13px; overflow:auto;}
+pre.result{border:1px solid #ccc; background-color:#eee; padding:5px; margin:0; margin-bottom:0; font-size:12px; overflow:auto;}
+pre.result, pre.prettyprint{border:1px solid #dedede; background-color:#f7f7f7; border-radius:0;}
+.prettyprint{background:#eee!important; border:1px solid #d6d6d6 !important;}
+pre.prettyprint{padding:5px; font-size:.95em; overflow-x:auto;}
+.result{background:#eee!important; border:1px solid #d6d6d6 !important;}
+pre.result{padding:5px; font-size:.95em; overflow-x:auto;}
+.tutorial-content table{margin-left:0px!important;}
+</style>
+<div class="mui-container-fluid content"> 
+<div class="mui-container">
+<!-- Tutorial ToC Starts Here -->
+<div class="mui-col-md-3 tutorial-toc">
+<div class="mini-logo">
+<img style="width:162px;" src="/images/QAicon.png" alt="Technical Questions and Answers" />
+</div>
+<ul class="toc chapters">
+<li class="heading big-font"><i class="fa fa-th-large"></i> Related Questions & Answers</li>
+<li><a href="/average-numbers-in-array-in-c-programming">Average numbers in array in C Programming</a></li>
+<li><a href="/add-minimum-number-to-an-array-so-that-the-sum-becomes-even-in-c-programming">Add minimum number to an array so that the sum becomes even in C programming</a></li>
+<li><a href="/arithmetic-mean-in-c-programming">Arithmetic Mean in C programming</a></li>
+<li><a href="/concatenate-a-string-given-number-of-times-in-cplusplus-programming">Concatenate a string given number of times in C++ programming</a></li>
+<li><a href="/write-a-program-to-delete-a-tree-in-c-programming">Write a program to Delete a Tree in C programming</a></li>
+<li><a href="/write-a-function-that-returns-2-for-input-1-and-returns-1-for-2-in-c-programming">Write a function that returns 2 for input 1 and returns 1 for 2 in C programming</a></li>
+<li><a href="/ways-to-paint-n-paintings-such-that-adjacent-paintings-don-t-have-same-colors-in-c-programming">Ways to paint N paintings such that adjacent paintings don&rsquo;t have same colors in C programming</a></li>
+<li><a href="/surface-area-and-volume-of-hexagonal-prism-in-c-programming">Surface Area and Volume of Hexagonal Prism in C programming</a></li>
+<li><a href="/superperfect-number-in-c-programming">Superperfect Number in C programming</a></li>
+<li><a href="/super-prime-in-c-programming">Super Prime in c programming</a></li>
+<li><a href="/sums-of-ascii-values-of-each-word-in-a-sentence-in-c-programming">Sums of ASCII values of each word in a sentence in c programming</a></li>
+<li><a href="/sum-triangle-from-an-array-in-c-programming">Sum triangle from an array in C programming</a></li>
+<li><a href="/c-programming-for-sum-of-the-series-0-6-0-06-0-006-0-0006-to-n-terms">C Programming for sum of the series 0.6, 0.06, 0.006, 0.0006, &hellip;to n terms</a></li>
+<li><a href="/c-programming-for-sum-of-sequence-2-22-222">C Programming for Sum of sequence 2, 22, 222, &hellip;&hellip;&hellip;</a></li>
+<li><a href="/sum-of-the-numbers-up-to-n-that-are-divisible-by-2-or-5-in-c-programming">Sum of the numbers up to N that are divisible by 2 or 5 in c programming</a></li>
+</ul><ul class="toc reading">
+<li class="sreading">Selected Reading</li>
+<li><a target="_top" href="/upsc_ias_exams.htm">UPSC IAS Exams Notes</a></li>
+<li><a target="_top" href="/developers_best_practices/index.htm">Developer's Best Practices</a></li>
+<li><a target="_top" href="/questions_and_answers.htm">Questions and Answers</a></li>
+<li><a target="_top" href="/effective_resume_writing.htm">Effective Resume Writing</a></li>
+<li><a target="_top" href="/hr_interview_questions/index.htm">HR Interview Questions</a></li>
+<li><a target="_top" href="/computer_glossary.htm">Computer Glossary</a></li>
+<li><a target="_top" href="/computer_whoiswho.htm">Who is Who</a></li>
+</ul>
+<div id="stickyparent">
+<div style="height:250px;width:300px;" id="sticky-ad">
+<div class="adsbyvli" data-ad-slot="vi_9012177"></div><script>(vitag.Init = window.vitag.Init || []).push(function(){viAPItag.display("vi_9012177")})</script>
+</div>
+</div>
+</div>
+<!-- Tutorial ToC Ends Here -->
+<!-- Tutorial Content Starts Here -->
+<div class="mui-col-md-6 tutorial-content">
+<h1 class="qa_title">Turtle programming in Python</h1>
+<div class="qa_category">
+<a href='https://www.tutorialspoint.com/questions/category/Python' target='_blank'><span>Python</span></a><a href='https://www.tutorialspoint.com/questions/category/Programming' target='_blank'><span>Programming</span></a><a href='https://www.tutorialspoint.com/questions/category/Server-Side-Programming' target='_blank'><span>Server Side Programming</span></a><hr/>
+<div id="vi_top_ads" style="text-align:center !important;"></div>
+   <script>
+     (function() {
+     var adPos = document.getElementById('vi_top_ads');
+     var ad_id_650 = "vi_9014435";
+     var ad_id_300 = "vi_9017967";
+     var width = window.innerWidth;
+     var ad_id = ad_id_650;
+     if( width <= 768 ){
+        ad_id =  ad_id_300;
+     }
+     adPos.innerHTML = '<div class="adsbyvli" data-ad-slot="' + ad_id + '"></div>';
+     (vitag.displayInit = window.vitag.displayInit || []).push(function () {
+         viAPItag.display(ad_id);
+     });
+     }())
+   </script>
+</div>
+<hr/>
+<p>Turtle is a special feathers of Python. Using Turtle, we can easily draw in a drawing board.</p>
+<p>First we import the turtle module. Then create a window, next we create turtle object and using turtle method we can draw in the drawing board.</p>
+<h2>Some turtle method</h2>
+<table class="table table-bordered">
+<tr>
+<th style="text-align:center;">METHOD</th>
+<th style="text-align:center;">PARAMETER</th>
+<th style="text-align:center;">DESCRIPTION</th>
+</tr>
+<tr>
+<td>Turtle()</td>
+<td>None</td>
+<td>It creates and returns a new turtle object</td>
+</tr>
+<tr>
+<td>forward()</td>
+<td>amount</td>
+<td>It moves the turtle forward by the specified amount</td>
+</tr>
+<tr>
+<td>backward()</td>
+<td>amount</td>
+<td>It moves the turtle backward by the specified amount</td>
+</tr>
+<tr>
+<td>right()</td>
+<td>angle</td>
+<td>It turns the turtle clockwise</td>
+</tr>
+<tr>
+<td>left()</td>
+<td>angle</td>
+<td>It turns the turtle counter clockwise</td>
+</tr>
+<tr>
+<td>penup()</td>
+<td>None</td>
+<td>It picks up the turtle’s Pen</td>
+</tr>
+<tr>
+<td>pendown()</td>
+<td>None</td>
+<td>Puts down the turtle’s Pen</td>
+</tr>
+<tr>
+<td>up()</td>
+<td>None</td>
+<td>Picks up the turtle’s Pen</td>
+</tr>
+<tr>
+<td>down()</td>
+<td>None</td>
+<td>Puts down the turtle’s Pen</td>
+</tr>
+<tr>
+<td>color()</td>
+<td>Color name</td>
+<td>Changes the color of the turtle’s pen</td>
+</tr>
+<tr>
+<td>fillcolor()</td>
+<td>Color name</td>
+<td>Changes the color of the turtle will use to fill a polygon</td>
+</tr>
+<tr>
+<td>heading()</td>
+<td>None</td>
+<td>It returns the current heading</td>
+</tr>
+<tr>
+<td>position()</td>
+<td>None</td>
+<td>It returns the current position</td>
+</tr>
+<tr>
+<td>goto()</td>
+<td>x, y</td>
+<td>It moves the turtle to position x,y</td>
+</tr>
+<tr>
+<td>begin_fill()</td>
+<td>None</td>
+<td>Remember the starting point for a filled polygon</td>
+</tr>
+<tr>
+<td>end_fill()</td>
+<td>None</td>
+<td>It closes the polygon and fills with the current fill color</td>
+</tr>
+<tr>
+<td>dot()</td>
+<td>None</td>
+<td>Leaves the dot at the current position</td>
+</tr>
+<tr>
+<td>stamp()</td>
+<td>None</td>
+<td>Leaves an impression of a turtle shape at the current location</td>
+</tr>
+<tr>
+<td>shape()</td>
+<td>shapename</td>
+<td>Should be ‘arrow’, ‘classic’, ‘turtle’ or ‘circle’</td>
+</tr>
+</table>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+my_window = turtle.Screen() 
+my_window.bgcolor("blue")       # creates a graphics window
+my_pen = turtle.Turtle()      
+my_pen.forward(150)           
+my_pen.left(90)               
+my_pen.forward(75)
+my_pen.color("white")
+my_pen.pensize(12)
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/turtle.jpg" alt="Turtle" style="height:351px,width:600px" />
+<h2>Draw a Square</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+my_pen = turtle.Turtle()      
+for i in range(4):
+   my_pen.forward(50)           
+   my_pen.right(90)               
+turtle.done()
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/square.jpg" alt="Square" style="height:155px,width:192px" /> 
+<h2>Draw a star</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+my_pen = turtle.Turtle()      
+for i in range(50):
+   my_pen.forward(50)           
+   my_pen.right(144)               
+turtle.done()
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/star.jpg" alt="Star" style="height:284px,width:193px" />
+<h2>Draw a Hexagon</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+polygon = turtle.Turtle()
+my_num_sides = 6
+my_side_length = 70
+my_angle = 360.0 / my_num_sides
+for i in range(my_num_sides):
+   polygon.forward(my_side_length)           
+   polygon.right(my_angle) 
+turtle.done()
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/hexagon.jpg" alt="Hexagon" style="height:235px,width:276px" />
+<h2>Draw a square inside another square box.</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+my_wn = turtle.Screen()
+my_wn.bgcolor("light blue")
+my_wn.title("Turtle")
+my_pen = turtle.Turtle()
+my_pen.color("black")
+def my_sqrfunc(size):
+   for i in range(4):
+      my_pen.fd(size)
+      my_pen.left(90)
+      size = size - 5
+my_sqrfunc(146)
+my_sqrfunc(126)
+my_sqrfunc(106)
+my_sqrfunc(86)
+my_sqrfunc(66)
+my_sqrfunc(46)
+my_sqrfunc(26)
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/square_box.jpg" alt="Square Box" style="height:231px,width:285px" /> 
+<h2>Drawing of another pattern</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+my_wn = turtle.Screen()
+turtle.speed(2)
+for i in range(30):
+   turtle.circle(5*i)
+   turtle.circle(-5*i)
+   turtle.left(i)
+turtle.exitonclick()
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/another_pattern.jpg" alt="Another Pattern" style="height:556px,width:528px" /> 
+<h2>Drawing of another pattern</h2>
+<h2>Example code</h2>
+<pre class="prettyprint notranslate">
+# import turtle library
+import turtle             
+colors = [ "red","purple","blue","green","orange","yellow"]
+my_pen = turtle.Pen()
+turtle.bgcolor("black")
+for x in range(360):
+   my_pen.pencolor(colors[x % 6])
+   my_pen.width(x/100 + 1)
+   my_pen.forward(x)
+   my_pen.left(59)
+</pre>
+<h2>Output</h2>
+<img src="https://www.tutorialspoint.com/assets/questions/media/13542/drawing_pattern.jpg" alt="Drawing Pattern" style="height:515px,width:600px" /><div class="clear"></div>
+<div class="mui-panel profile-panel">
+<a href='https://www.tutorialspoint.com/answers/Karthikeya-Boyini' target='_blank' title="raja" class="mui--pull-left">
+<img class="profile" src='https://www.tutorialspoint.com/assets/profiles/13518/profile/60_31598-1537784993.jpg' alt='raja'/>
+</a>  
+<div class="qa_author">
+<a href='https://www.tutorialspoint.com/answers/Karthikeya-Boyini' target='_blank'><span>Karthikeya Boyini</span></a> 
+</div> 	
+<div class="qa_answer_dtm">
+Published on 08-Nov-2018 11:12:28</div>
+<div class="author-caret">
+<a href='https://www.tutorialspoint.com/answers/Karthikeya-Boyini' target='_blank'>
+<i class="fal fa-chevron-circle-right"></i>
+</a>
+</div>					
+</div>   
+<div class="mui-container-fluid button-borders show">
+<div class="pre-btn">
+<a href="/questions/index.php"><i class="fal fa-chevron-circle-left"></i> Previous Page</a>
+<a class="hide-on-mobile" href="javascript:printPage();"><i class="fa fa-print"></i> Print Page</a>
+</div>
+<div class="nxt-btn">
+<a href="">Next Page <i class="fal fa-chevron-circle-right"></i>&nbsp;</a>
+</div>
+</div>
+<div class="google-bottom-ads">
+<div>Advertisements</div>
+<div id="vi_bottom_ads"></div>
+   <script>
+     (function() {
+     var adPos = document.getElementById('vi_bottom_ads');
+     var mobile_ad_id = "vi_9017966";
+     var desktop_ad_id = "vi_9013190";
+     var ad_id = window.innerWidth <= 768 ? mobile_ad_id : desktop_ad_id;
+     adPos.innerHTML = '<div class="adsbyvli" data-ad-slot="' + ad_id + '"></div>';
+     (vitag.displayInit = window.vitag.displayInit || []).push(function () {
+         viAPItag.display(ad_id);
+     });
+     }())
+   </script>
+<div class="space-bottom"></div>
+</div>
+</div>
+<!-- Tutorial Content Ends Here -->
+<div class="mui-col-md-2 google-right-ads">
+<div class="space-top"></div>
+<div class="google-right-ad" style="margin: 0px auto !important;">
+<div class="adsbyvli" data-ad-slot="vi_9017966"></div><script>(vitag.Init = window.vitag.Init || []).push(function(){viAPItag.display("vi_9017966")})</script>
+</div>
+<div class="google-right-ad" style="margin-top:16px">
+<div class="adsbyvli" data-ad-slot="vi_9017967"></div><script>(vitag.Init = window.vitag.Init || []).push(function(){viAPItag.display("vi_9017967")})</script>
+</div>
+<div class="space-bottom"></div>
+<div class="google-right-ad" style="margin-top:16px;margin-bottom:15px;">
+<div class="adsbyvli" data-ad-slot="vi_9013289"></div><script>(vitag.Init = window.vitag.Init || []).push(function(){viAPItag.display("vi_9013289")})</script>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column Ends Here -->
+<div class="clear"></div>
+<footer id="footer">
+<div class="mui--text-center">
+<div class="mui--text-caption mui--text-light">
+<a href="/index.htm" class="logo"><img class="img-responsive" src="/images/logo-black.png" alt="Tutorials Point" title="Tutorials Point"></a>
+</div>
+<ul class="mui-list--inline mui--text-body2 mui--text-light">
+<li><a href="/about/index.htm"><i class="fal fa-globe"></i> About us</a></li>
+<li><a href="/about/about_terms_of_use.htm"><i class="fal fa-asterisk"></i> Terms of use</a></li>
+<li><a href="/about/about_privacy.htm#cookies"> <i class="fal fa-shield-check"></i> Cookies Policy</a></li>
+<li><a href="/about/faq.htm"><i class="fal fa-question-circle"></i> FAQ's</a></li>
+<li><a href="/about/about_helping.htm"><i class="fal fa-hands-helping"></i> Helping</a></li>
+<li><a href="/about/contact_us.htm"><i class="fal fa-map-marker-alt"></i> Contact</a></li>
+</ul>
+<div class="mui--text-caption mui--text-light bottom-copyright-text">&copy; Copyright 2020. All Rights Reserved.</div>
+</div>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-232293-17"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-232293-17');
+</script>
+</footer>
+</body>
+</html>
