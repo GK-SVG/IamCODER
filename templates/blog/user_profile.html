@@ -20,7 +20,11 @@ height:3rem;
                 <button class="btn btn-primary mr-2" data-toggle="modal" data-target="#editProfile">Edit
                     Profile</button>
                 {% else %}
-                <button class="btn btn-primary mr-2">Follow</button>
+                {% if following %}
+                <button id="follow_btn" class="btn mx-1 btn-dark" onclick="unfollow_user({{post.user.id}})">UnFollow</button>
+                {% else %}
+                <button id="follow_btn" class="btn mx-1 btn-primary" onclick="follow_user({{post.user.id}})">Follow</button>
+                {% endif %}
                 {% endif %}
             </div>
             <div class="col-xl-12 col-md-12 col-12 d-flex justify-content-center mt-2">
@@ -60,7 +64,7 @@ height:3rem;
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="/signup/" method="post">
+                        <form action="{% url 'EditProfile' %}" method="post">
                             <div class="form-group">
                                 <label for="location">Location</label>
                                 <input type="text" class="form-control"  name="location"
@@ -78,12 +82,12 @@ height:3rem;
                             </div>
                             <div class="form-group">
                                 <label for="work_at">Work At</label>
-                                <input type="text" class="form-control" id="email" name="work_at" value="{{user_details.work_at}}"
+                                <input type="text" class="form-control"  name="work_at" value="{{user_details.work_at}}"
                                      Required>
                             </div>
                             <div class="form-group">
-                                <label for="work_at">Bio</label>
-                                <textarea class="form-control" name="bio" id="" cols="50" rows="3">{{user_details.descripation}}</textarea>
+                                <label for="bio">Bio</label>
+                                <textarea class="form-control" name="bio" cols="50" rows="3">{{user_details.descripation}}</textarea>
                             </div>
                             {% csrf_token %}
                             <button type="submit" class="btn btn-primary">Save</button>
@@ -123,10 +127,12 @@ height:3rem;
             {% for post in blogs %}
             <div class="col-xl-12 col-md-12 col-12 mt-4">
                 <div class="card p-1">
-                    <div class="card-body" style="color: black;">
-                        <h5 class="card-title">{{post.title}}</h5>
+                    <div class="card-body">
+                        <a href="{% url 'blogpost' post.post_id %}" style="text-decoration:none;color: black;">
+                            <h5 class="card-title">{{post.title}}</h5>
+                        </a>
                         <span>{{post.pub_date}} ({{post.view}} views)</span>
-                        <div class="col-xl-12 col-md-12 col-12">
+                        <div class="col-xl-12 col-md-12 col-12 d-flex justify-content-end">
                             {% include "blog/share.html" %}
                         </div>
                     </div>
@@ -136,4 +142,79 @@ height:3rem;
         </div>
     </div>
 </div>
+<script>
+var f_btn = document.getElementsByClassName("f_btn_class")
+for (var i=0;i<f_btn.length;i+=1){
+    f_btn[i].style.display = 'none';
+}
+function SaveBlog(post_id){
+    let url = `/saveBlog/${post_id}`
+        fetch(url, {
+                method: "GET",
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log('responce--', response)
+                swal({
+                    text: response[0].message,
+                    type: response[0].type,
+                    icon: response[0].type
+                    });
+            }).catch((err) => {
+                console.log('error--', err)
+            });
+}
+
+function follow_user(userId){
+    let url = `/followUser/${userId}`
+        fetch(url, {
+                method: "GET",
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log('responce--', response)
+                swal({
+                    text: response[0].message,
+                    type: response[0].type,
+                    icon: response[0].type
+                    }).then(()=>{
+                        var btn = document.getElementById("follow_btn")
+                        btn.innerText = "UnFollow"
+                        btn.className = "btn btn-dark"
+                        btn.setAttribute("onclick",`unfollow_user(${userId})`) 
+                    })
+            }).catch((err) => {
+                console.log('error--', err)
+            });
+}
+
+function unfollow_user(userId){
+    let url = `/unfollowUser/${userId}`
+        fetch(url, {
+                method: "GET",
+            })
+            .then((response) => {
+                return response.json();
+            })
+            .then((response) => {
+                console.log('responce--', response)
+                swal({
+                    text: response[0].message,
+                    type: response[0].type,
+                    icon: response[0].type
+                    }).then(()=>{
+                        var btn = document.getElementById("follow_btn")
+                        btn.innerText = "Follow"
+                        btn.className = "btn btn-primary"
+                        btn.setAttribute("onclick",`follow_user(${userId})`) 
+                    })
+            }).catch((err) => {
+                console.log('error--', err)
+            });
+}
+</script>
 {% endblock body %}

@@ -316,9 +316,10 @@ def Save_Blog(request,id):
         data = [{'message':"Something went wrong","status":'404','type':"error"}]
         return JsonResponse(data,safe=False)
     try:
-        savedBlog = SavedBlogs.objects.get(user=request.user,blogs=blog)
-        data = [{'message':"Blog Already Saved","status":'200','type':"warning"}]
-        return JsonResponse(data,safe=False)
+        savedBlog = SavedBlogs.objects.get(user=request.user)
+        if savedBlog.blogs==blog:
+            data = [{'message':"Blog Already Saved","status":'200','type':"warning"}]
+            return JsonResponse(data,safe=False)
     except:
         saveBlog = SavedBlogs(user=request.user,blogs=blog)
         saveBlog.save()
@@ -402,4 +403,28 @@ def user_profile(request,username):
     data = {'user':user,'user_details':user_details,'blogs':blogs,'followers':followers,'following':following,'followers_count':followers_count,'following_count':following_count,'savedBlogs_count':savedBlogs_count,'user_following':user_following,'blogs_count':blogs_count}
     return render(request,'blog/user_profile.html',data)
     
+
+def edit_profile(request):
+    if request.method=="POST":
+        user_details = UserDetails.objects.get(user=request.user)
+        if user_details:
+            location = request.POST.get("location")
+            education = request.POST.get("education")
+            github = request.POST.get("github")
+            work_at = request.POST.get("work_at")
+            bio = request.POST.get("bio")
+            user_details.location = location
+            user_details.github_url = github
+            user_details.education = education
+            user_details.work_at = work_at
+            user_details.descripation = bio
+            user_details.save()
+            messages.success(request,"Profile Details Edited Successfully")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+        messages.error(request,"User Not Exist")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+    messages.error(request,"Something Went wrong")
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+
+
 

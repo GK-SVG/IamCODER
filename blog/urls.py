@@ -35,6 +35,7 @@ urlpatterns = [
     path("mySavedBlogs/",views.UserSavedBlogs,name="UserSavedBlogs"),
     path("followUser/<int:id>",views.Follow_User,name="Follow_User"),
     path("unfollowUser/<int:id>",views.UnFollow_User,name="UnFollow_User"),
-    path("user_profile/<str:username>",views.user_profile,name="UserProfile")
+    path("user_profile/<str:username>",views.user_profile,name="UserProfile"),
+    path("edit_profile/",views.edit_profile,name="EditProfile")
 ]
 
